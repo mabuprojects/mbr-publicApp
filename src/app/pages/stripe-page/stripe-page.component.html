@@ -1,0 +1,63 @@
+<div class="center">
+  <p class="title-section-mobile" appStyleApp [classCss]="'color2'">Pago</p>
+</div>
+
+<div class="row">
+  <div class="col s12 m12 l6 offset-l3">
+    <div class="card">
+      <div class="card-content">
+        <h5 translate> Resumen de pedido</h5>
+        <div class="row">
+          <div class="col s12">
+            <p>Dirección: {{getAddressFormated(order.address | async)}}</p>
+            <p>Nota de pedido:{{order.clientNote | async}}</p>
+            <p>Tiempo estimado: {{order.estimatedPickupOrDeliveryTime | async}}</p>
+            <p>Precio total: {{order.totalPrice | async}}</p>
+            <p>Restaurante:{{order.restaurantId | async}}</p>
+            <ul class="collection no-border">
+              <li *ngFor="let orderLine of order.orderLines | async; let index=index" class="collection-item avatar">
+                <img [src]="urlImage+orderLine.productImage" class="circle">
+                <span class="title">{{orderLine.productName}}</span>
+                <p>{{orderLine.quantity}} und.<br>
+                  {{orderLine.totalPrice}} €
+                </p>
+                <p *ngFor="let option of orderLine.optionLinePrices">{{option.optionName}}:
+                  {{option.chossenOptionName}}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <form [formGroup]="paymentForm" id="payment-form">
+          <div class="form-row">
+            <br>
+            <mbr-error-card [(error)]=error [errorMessage]=errorMessage></mbr-error-card>
+            <br>
+            <label for="card-element">
+              Tarjeta de crédito o débito
+            </label>
+            <div id="card-element"></div>
+
+
+            <div id="card-errors"></div>
+          </div>
+          <br>
+          <div class="right-align">
+            <img class="left-align" src="../../../assets/resources/powered_by_stripe.svg">
+          </div>
+          <br>
+
+
+          <div class="center">
+            <button class="waves-effect waves-light btn" appStyleApp [classCss]="'color4'" [disabled]="!formValid"
+                    (click)="submitPayment()">Pagar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-------------------------------------------- TOASTS --------------------------------------------------->
+<a (click)="triggerToast()" materialize [materializeParams]="['Pago realizado',4000]"
+   [materializeActions]="toastActions"></a>

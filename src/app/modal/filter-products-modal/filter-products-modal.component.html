@@ -1,0 +1,21 @@
+<div id="modal" class="modal" style="max-height:85% !important;" materialize="modal"  [materializeParams]="[{dismissible: true}]"
+     [materializeActions]="modalActions">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s12 m10 l8 offset-m1 offset-l2">
+
+        <div class="center-align">
+
+          <div class="center padding-top-subtitles">
+            <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>filter-products-modal.title</p>
+          </div>
+
+          <app-categories-filter (categoryId)="setCategoryId($event)"></app-categories-filter>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

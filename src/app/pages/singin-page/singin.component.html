@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col s12  m12 l6 offset-l3">
+
+    <div class="center padding-top-subtitles">
+      <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>signin.title</p>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+
+        <mbr-error-card [(error)]=error [errorMessage]=errorMessage></mbr-error-card>
+
+        <form [formGroup]="myForm" (ngSubmit)="onSignin()">
+          <div class="form-group">
+            <label for="email" translate>common.email</label>
+            <input formControlName="email" type="email" id="email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="password" translate>common.password</label>
+            <input formControlName="password" type="password" id="password" class="form-control">
+          </div>
+          <div class="row">
+            <div class="col s12 center">
+              <button type="submit" [disabled]="!myForm.valid" appStyleApp [classCss]="'color4'"
+                      class="btn btn-primary" translate>signin.enter
+              </button>
+            </div>
+            <br>
+            <br>
+            <div class="col s12 center" style="padding-top: 22px;">
+              <a routerLink="/singup" appStyleApp [classCss]="'color3'" routerLinkActive="active" translate>signin.register
+              </a>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

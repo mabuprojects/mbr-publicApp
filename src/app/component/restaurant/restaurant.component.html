@@ -1,0 +1,10 @@
+<p>Direccion: {{getAddressFormated(restaurant.address)}}</p>
+<p>Número: {{restaurant.phoneNumber}}</p>
+<p>Horario</p>
+
+<div class="center">
+  <agm-map [latitude]="restaurant.address.latitude" [zoom]="15" [longitude]="restaurant.address.longitude">
+    <agm-marker [latitude]="restaurant.address.latitude"
+                [longitude]="restaurant.address.longitude"></agm-marker>
+  </agm-map>
+</div>

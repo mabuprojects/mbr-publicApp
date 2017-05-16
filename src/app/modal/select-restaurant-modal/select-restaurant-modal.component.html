@@ -1,0 +1,30 @@
+<div id="modal" class="modal" style="max-height:85% !important;" materialize="modal" (init)="initModal()" [materializeParams]="[{dismissible: false}]"
+     [materializeActions]="modalActions">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s12 m10 l8 offset-m1 offset-l2">
+        <div class="center-align">
+
+          <h5 translate>select-restaurant-modal.msg</h5>
+
+          <div class="row no-margin-bottom">
+            <div class="col s6 offset-s3">
+              <form [formGroup]="pcForm" novalidate>
+                <input class="center" id="pc" type="number" placeholder="{{postalCodeTranslation}}" formControlName="pc"
+                       [inputvalidate]="pcForm.controls['pc']">
+              </form>
+            </div>
+          </div>
+
+          <mbr-error-card [(error)]=error [errorMessage]=errorMessage></mbr-error-card>
+
+          <div class="collection" *ngFor="let restaurant of restaurants">
+            <a class="collection-item" appStyleApp [classCss]="'color3'" [routerLink]="restaurant.name"
+               routerLinkActive="active"
+               (click)="onSelectRestaurant(restaurant)">{{restaurant.name}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

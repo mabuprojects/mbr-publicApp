@@ -1,0 +1,55 @@
+<div class="fluid-container materialize">
+  <!--Buttons first row-->
+  <div class="row hide-on-large-only initial-row no-margin-bottom">
+    <div class=" col s6 m6">
+      <!-- BOOK BUTTON -->
+    </div>
+
+    <div class=" col s6 m6">
+      <button type="button" (click)="activateFilterProductsModal()"
+              [ngClass]="{'red':categoryIdFilter, 'grey':!categoryIdFilter}"
+              class="right waves-effect waves-light btn small-padding-sides">
+        <i class="large material-icons">filter_list</i><i [ngClass]="{'hide':!categoryIdFilter}"
+                                                          class="large material-icons icon-disablefilter">do_not_disturb</i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row no-padding-top">
+
+    <!--FILTER CATEGORIES (ONLY DESKTOP)-->
+    <div class="col l2 hide-on-med-and-down">
+      <div class="center padding-top-subtitles">
+        <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>main-page.categories</p>
+      </div>
+      <app-categories-filter (categoryId)="setCategoryId($event)"></app-categories-filter>
+    </div>
+
+    <!--MAIN CONTENT-->
+    <div class="col s12 m12 l8">
+      <div class="col s6 m4 l3"
+           *ngFor="let product of (products | filterProductsByCategory:categoryIdFilter )">
+        <div class="row no-margin">
+          <app-product-card [product]="product"></app-product-card>
+        </div>
+      </div>
+    </div>
+
+    <!--CART ITEMS (ONLY DESKTOP)-->
+    <div class="col l2 hide-on-med-and-down ">
+      <div class="center padding-top-subtitles">
+        <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>cart-page.cart</p>
+      </div>
+      <app-cart></app-cart>
+
+    </div>
+  </div>
+</div>
+
+
+<!-------------------------------------------- MODALS --------------------------------------------------->
+
+<app-select-restaurant-modal [show]="showChangeRestaurantModal"></app-select-restaurant-modal>
+
+<app-filter-products-modal (categoryId)="setCategoryId($event)"></app-filter-products-modal>
+

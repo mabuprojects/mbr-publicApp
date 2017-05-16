@@ -1,0 +1,132 @@
+{
+  "common": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "currency": "€"
+  },
+  "nav-bar": {
+    "singIn": "Iniciar sesión",
+    "singUp": "Regístrate",
+    "logout": "Cerrar sesión",
+    "changeRestaurant": "Cambiar de restaurante",
+    "blog": "Blog",
+    "filter": "Filtrar",
+    "language": "Idioma",
+    "orders": "Mis pedidos",
+    "profile": "Mi perfil"
+  },
+  "singin": {
+    "title": "Iniciar sesión",
+    "NewUser": "Nuevo Usuario",
+    "ConfirmPassword": "Repita la Contraseña",
+    "enter": "Entrar",
+    "register": "Regístrate"
+  },
+  "singup": {
+    "title": "Registrarse",
+    "NewUser": "Nuevo Usuario",
+    "confirmPassword": "Repite la Contraseña",
+    "enter": "Entrar",
+    "register": "Regístrate"
+  },
+  "language": {
+    "English": "Inglés",
+    "Spanish": "Español"
+  },
+  "cart-page": {
+    "cart": "Cesta"
+  },
+  "main-page": {
+    "categories": "Categorias",
+    "book-table": "Reservar mesas"
+  },
+  "order-page": {
+    "title": "Mis pedidos",
+    "status": {
+      "PAID": "Paid",
+      "PENDING_PAYMENT": "Pending payment",
+      "NOT_PAID": "No paid",
+      "COOKING": "Cooking",
+      "SENDED": "Sended",
+      "CLOSED": "Closed",
+      "CANCELED": "Canceled"
+    }
+  },
+  "order-page-details": {
+    "title": "Pedido del"
+  },
+  "payment-page": {
+    "title": "Detalles del pedido",
+    "shippingAddress": "Dirección de envío",
+    "orderSummary": "Resumen de pedido",
+    "orderPreferences": "Preferencias del pedido",
+    "selectService": "Seleccione un servicio",
+    "service": "Servicio",
+    "observations": "Observaciones",
+    "restaurantAddress":"Dirección del restaurante",
+    "pay": "Pagar",
+    "services": {
+      "DELIVERY": "Domicilio",
+      "TAKE_AWAY": "Local y recoger"
+    }
+  },
+  "product-page": {
+    "buy": "Comprar",
+    "quantity": "Cantidad"
+  },
+  "profile-page": {
+    "title": "Mi perfil",
+    "name": "Nombre",
+    "address": "Dirección"
+  },
+  "select-restaurant-modal": {
+    "msg": "Selecciona tu restaurante",
+    "postalCode": "Código postal",
+    "noRestaurantError": "No hay coincidencias"
+  },
+  "cart-component": {
+    "msg": "Finalizar pedido",
+    "empty": "Vacía"
+  },
+  "address-form": {
+    "title": "Direccion",
+    "street": "Calle*",
+    "number": "Número*",
+    "unity": "Unidad*",
+    "pc": "Código postal*",
+    "city": "Ciudad*",
+    "state": "Comunidad autónoma*",
+    "country": "País*",
+    "observations": "Observaciones"
+  },
+  "filter-products-modal": {
+    "title":"Filtrar por categoria"
+  },
+  "exceptions": {
+    "400": "Estado erróneo.",
+    "401": "Este pedido no tiene ningún producto.",
+    "402": "Este restaurante no tiene este servicio.",
+    "403": "Hemos tenido un problema con la pasarela de pago.",
+    "404": "Este pedido no puede ser pagado.",
+    "405": "Restaurante no disponible.",
+    "406": "No se puede pagar en el envío.",
+    "407": "Producto no disponible.",
+    "408": "El código postal no se corresponde con el área de este Restaurante.",
+    "stripe": {
+      "invalid_number": "El número de la tarjeta no es un número válido.",
+      "invalid_expiry_month": "El mes de expiración de la tarjeta es inválido.",
+      "invalid_expiry_year": "El año de expiración de la tarjeta es inválido.",
+      "invalid_cvc": "El código de seguridad de la tarjeta es inválido (CVC).",
+      "invalid_swipe_data": "Los datos de la tarjeta no son váidos.",
+      "incorrect_number": "El número de la tarjeta es incorrecto.",
+      "expired_card": "La tarjeta ha expirado.",
+      "incorrect_cvc": "El código de seguridad de la tarjeta es incorrecto (CVC).",
+      "incorrect_zip": "El zip de la tarjeta es inválido.",
+      "card_declined": "La tarjeta ha sido rechazada.",
+      "missing": "No hay ninguna tarjeta en un cliente que se esté cargando.",
+      "processing_error": "Ha ocurrido un error mientras se procesaba la tarjeta."
+    }
+  }
+}

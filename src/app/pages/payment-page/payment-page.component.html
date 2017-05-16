@@ -1,0 +1,87 @@
+<div [class.hide]="!hideAddress">
+
+  <div class="row">
+    <div class="col s12 m12 l6 offset-l3">
+      <div class="center padding-top-subtitles">
+        <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>payment-page.title</p>
+      </div>
+
+      <div class="card">
+        <div class="card-content card-content-padding">
+
+          <!--ORDER SUMMARY-->
+          <h5 translate>payment-page.orderSummary</h5>
+
+          <app-order-request></app-order-request>
+
+          <form [formGroup]="orderForm" novalidate>
+
+            <!--ORDER PREFERECES-->
+            <h5 translate>payment-page.orderPreferences</h5>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <select id="serviceType" materialize="material_select" formControlName="serviceType"
+                        [materializeSelectOptions]="selectOptions">
+                  <option value="" disabled selected translate>payment-page.selectService</option>
+                  <option *ngFor="let service of services" [value]="service" translate>
+                    payment-page.services.{{service}}
+                  </option>
+                </select>
+                <label for="serviceType" translate>payment-page.service</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input id="note" type="text" formControlName="note"
+                       [inputvalidate]="orderForm.controls['note']">
+                <label for="note" translate>payment-page.observations</label>
+              </div>
+            </div>
+          </form>
+
+          <!--SHIPPING ADDRESS-->
+          <div [class.hide]="orderForm.controls['serviceType'].value!='DELIVERY'">
+            <h5 translate>payment-page.shippingAddress</h5>
+            <div class="row">
+              <div class="col s10">
+                <p>{{addressString}}</p>
+              </div>
+              <div class="col s2">
+                <div class="right">
+                  <button class="btn btn-success small-padding-sides" (click)="openAddressForm()"><i
+                    class="small material-icons">mode_edit</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--RESTAURANT ADDRESS-->
+          <div [class.hide]="orderForm.controls['serviceType'].value!='TAKE_AWAY'">
+            <h5 translate>payment-page.restaurantAddress</h5>
+            <div class="row">
+              <div class="s12">
+                <app-restaurant [restaurant]="restaurant"></app-restaurant>
+              </div>
+            </div>
+          </div>
+
+          <mbr-error-card [(error)]=error [errorMessage]=errorMessage></mbr-error-card>
+
+          <div class="center">
+            <button type="button" [disabled]="orderForm.invalid || buttonDisabled" (click)="createOrder()"
+                    class="waves-effect waves-light btn " appStyleApp [classCss]="'color4'"> Pagar {{totalPrice}} €
+            </button>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-------------------------------------------- ADDRESS FORM --------------------------------------------------->
+
+<app-address-form [class.hide]="hideAddress" (onBack)="onBack($event)"></app-address-form>

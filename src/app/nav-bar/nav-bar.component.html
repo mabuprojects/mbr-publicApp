@@ -1,0 +1,74 @@
+<div appStyleApp [classCss]="'color1'" class="nav-wrapper">
+
+
+  <!-------------------------------------------- NAVBAR COMMON --------------------------------------------------->
+  <a (click)="redirectToMainPage()" class="brand-logo center title-nav">
+    <span getDataApp [key]="'companyName'"></span>
+    <span class="hide-on-med-and-down subtitle-nav-desktop">{{restaurantName | async}}</span>
+    <span class="hide-on-large-only subtitle-nav-mobile">{{restaurantName | async}}</span>
+  </a>
+
+  <a class="right hide-on-large-only" style="padding-right:10px;" (click)="redirectToCartPage()"
+     routerLinkActive="active"><i class="material-icons">shopping_cart</i> <span class="shoppingCartNumberMobile">{{itemNumber}}</span></a>
+
+
+  <a materialize="sideNav" [materializeActions]="sideNavActions" [materializeParams]="[{edge:'left'}]"
+     data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+
+  <!-------------------------------------------- NAVBAR DESKTOP --------------------------------------------------->
+
+  <ul class="right hide-on-med-and-down">
+    <li><a materialize="dropdown" style="width:127px;" class="dropdown-button" data-activates="language" translate><i
+      class=" iconbar material-icons right" data-stoppropagation="true">language</i></a></li>
+    <li *ngIf="!autenticated"><a routerLink="/singin" routerLinkActive="active" translate>nav-bar.signIn</a></li>
+    <li><a (click)="redirectToCartPage()" routerLinkActive="active"><i class="material-icons">shopping_cart</i> <span
+      class="shoppingCartNumberDesktop">{{itemNumber}}</span></a></li>
+    <li><a class="dropdown-button" data-activates="dropdown1"><i class="material-icons right">more_vert</i></a>
+    </li>
+
+
+    <ul id="dropdown1" class="dropdown-content dropdown-desktop">
+      <li><a routerLink="" routerLinkActive="active" translate>nav-bar.changeRestaurant</a></li>
+      <li *ngIf="autenticated"><a routerLink="/profile" routerLinkActive="active" (click)="closeSideNav()" translate>nav-bar.profile</a>
+      <li *ngIf="autenticated"><a routerLink="/orders" routerLinkActive="active" (click)="closeSideNav()" translate>nav-bar.orders</a>
+      </li>
+      <div class="divider"></div>
+      <li *ngIf="autenticated"><a routerLinkActive="active" (click)="logOut()" translate>nav-bar.logout</a></li>
+    </ul>
+  </ul>
+
+
+  <!-------------------------------------------- SIDENAV MOBILE --------------------------------------------------->
+
+  <ul class="side-nav" id="mobile-demo" style="width: 240px;">
+    <li *ngIf="restaurantName"><a (click)="redirectToRestaurantPage()" routerLinkActive="active">Mas info
+      {{restaurantName | async}}</a></li>
+    <li><a (click)="closeSideNav()" translate>nav-bar.changeRestaurant</a></li>
+    <li *ngIf="!autenticated"><a routerLink="/singin" (click)="closeSideNav()" routerLinkActive="active" translate>nav-bar.signIn</a>
+    <li *ngIf="autenticated"><a routerLink="/profile" routerLinkActive="active" (click)="closeSideNav()" translate>nav-bar.profile</a>
+    <li *ngIf="autenticated"><a routerLink="/orders" routerLinkActive="active" (click)="closeSideNav()" translate>nav-bar.orders</a>
+
+      <div *ngIf="autenticated" class="divider"></div>
+    <li *ngIf="autenticated"><a routerLinkActive="active" (click)="logOut()" translate>nav-bar.logout</a></li>
+    <div class="divider"></div>
+    <li><a materialize="dropdown" class="dropdown-button" data-activates="language" translate>nav-bar.language</a></li>
+  </ul>
+</div>
+
+<!-------------------------------------------- SELECT LANGUAGE --------------------------------------------------->
+
+
+<ul id="language" class="dropdown-content">
+  <li>
+    <a class="truncate" *ngFor="let language of languages" (click)="select(language.value)" translate>
+      <span class="flag-icon flag-icon-{{language.flag}}" style="margin-left: -1px"></span>
+      language.{{language.label}}
+    </a>
+  </li>
+</ul>
+
+<!-------------------------------------------- TOAST --------------------------------------------------->
+
+<a (click)="triggerToast()" materialize [materializeParams]="['Sesión cerrada',4000]"
+   [materializeActions]="toastActions"></a>

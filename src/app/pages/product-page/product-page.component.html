@@ -1,0 +1,85 @@
+<div class="fluid-container materialize">
+  <div class="row">
+
+    <!--SUBTITLE-->
+    <div class="col s12 m12 l6 offset-l3">
+      <div class="center padding-top-subtitles">
+        <p class="title-section-mobile" appStyleApp [classCss]="'color2'">{{product.name}}</p>
+      </div>
+
+      <!--PRODUCT-->
+      <div class="card hoverable">
+        <div class="center no-padding-top">
+          <img class="hide-on-med-and-down" style="max-width: 200px;" [src]="urlImage+product.imageName">
+          <img class="hide-on-large-only" style="max-width: 150px;" [src]="urlImage+product.imageName">
+        </div>
+
+        <div class="card-content no-padding-top">
+          <div class="center">
+            <p>{{product.description}}</p>
+          </div>
+          <form [formGroup]="productCartForm" novalidate>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="quantity" type="number" formControlName="quantity"
+                       [class.valid]="controlValid('quantity', productCartForm)"
+                       [class.invalid]="controlInvalid('quantity', productCartForm)">
+                <label for="quantity" data-error="Incorrecto" translate>product-page.quantity</label>
+              </div>
+
+              <!--OPTIONS-->
+              <div formArrayName="options">
+                <div class="input-field col s12">
+                  <div *ngFor="let option of options.controls; let indexOption=index" [formGroupName]="indexOption">
+                    <p>{{option.value.name}}</p>
+                    <div *ngIf="option.value.main">
+                      <div *ngFor="let optionLine of getoptionLines(option.value.id) ">
+                        <input name="active" type="radio" class="with-gap" id={{optionLine.id}} [value]="optionLine.id"
+                               formControlName="active"/>
+                        <label for={{optionLine.id}}>{{optionLine.name}}
+                          ({{optionLine.optionLinePrices[0].priceAdded}}€)</label>
+                      </div>
+                    </div>
+                    <div *ngIf="!option.value.main">
+
+                      <select id={{option.value.id}} materialize="material_select" formControlName="active"
+                              [materializeSelectOptions]="selectOptions">
+                        <option [value]="empty">No</option>
+                        <option *ngFor="let optionLine of getoptionLines(option.value.id)" [value]="optionLine.id">
+                          {{optionLine.name}} (+ {{optionLine.optionLinePrices[0].priceAdded}} € )
+                        </option>
+                      </select>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+                <div class="center">
+                  <button type="button" class="waves-effect waves-light btn" appStyleApp [classCss]="'color4'"
+                          [disabled]="productCartForm.invalid"
+                          (click)="onSubmit()">Comprar {{actualPrice}} €
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!--CART ITEMS-->
+    <div class="col l3 hide-on-med-and-down">
+      <div class="center padding-top-subtitles">
+        <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>cart-page.cart</p>
+      </div>
+      <app-cart></app-cart>
+
+    </div>
+  </div>
+</div>
+
+<!-------------------------------------------- TOAST --------------------------------------------------->
+
+<a (click)="triggerToast()" materialize [materializeParams]="['Producto añadido',4000]"
+   [materializeActions]="toastActions"></a>

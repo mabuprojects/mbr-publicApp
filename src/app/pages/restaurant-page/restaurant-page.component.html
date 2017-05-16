@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col s12 m12 l6 offset-l3">
+    <div class="center padding-top-subtitles">
+      <p class="title-section-mobile" appStyleApp [classCss]="'color2'">{{name}}</p>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <app-restaurant [restaurant]="(restaurantObservable | async)"></app-restaurant>
+      </div>
+    </div>
+  </div>
+</div>

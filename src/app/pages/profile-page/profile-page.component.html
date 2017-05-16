@@ -1,0 +1,32 @@
+<div [class.hide]="!hideAddress">
+  <div class="row">
+    <div class="col s12  m12 l6 offset-l3">
+      <div class="center padding-top-subtitles">
+        <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>profile-page.title</p>
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <h5 translate>profile-page.name</h5>
+          <p>{{client.name}}</p>
+          <div class="row">
+            <div class="col s6">
+              <h5 translate>profile-page.address</h5>
+            </div>
+            <div class="col s6">
+              <button class="btn btn-success" appStyleApp [classCss]="'color4'" (click)="openAddressForm()"><i
+                class="small material-icons">mode_edit</i>
+              </button>
+            </div>
+          </div>
+          <p>{{addressString}}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<app-address-form [class.hide]="hideAddress" (onBack)="onBack($event)"></app-address-form>
+
+<a (click)="triggerToast()" materialize [materializeParams]="['Dirección actualizada',4000]"
+   [materializeActions]="toastUpdateActions"></a>

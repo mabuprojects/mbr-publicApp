@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col s12">
+    <p>Precio total {{totalPrice}}€</p>
+    <p>Gastos de envío 0.00 €</p>
+
+    <ul class="collection no-border">
+      <li *ngFor="let product of cart.products; let index=index" class="collection-item avatar">
+        <img [src]="urlImage+product.imageName" class="circle">
+        <span class="title">{{product.name}}</span>
+        <p>{{product.quantity}} und.<br>
+          {{product.totalPrice * product.quantity}} €
+        </p>
+        <p *ngFor="let option of product.options">{{option.optionName}}: {{option.optionLineName}}</p>
+      </li>
+    </ul>
+  </div>
+</div>

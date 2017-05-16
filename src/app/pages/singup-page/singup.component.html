@@ -1,0 +1,46 @@
+<div class="fluid-container materialize">
+
+  <div class="row">
+    <div class="col s12  m12 l6 offset-l3">
+      <div class="center padding-top-subtitles">
+        <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>signup.title</p>
+      </div>
+      <div class="card">
+        <div class="card-content">
+
+          <mbr-error-card [(error)]=error [errorMessage]=errorMessage></mbr-error-card>
+          <form materialize [formGroup]="myForm" (ngSubmit)="onSignup()">
+
+            <div class="input-field">
+              <input formControlName="email" type="email" id="email" class="validate" #email>
+              <label for="email" data-error="El email no es válido" translate>common.email</label>
+              <span
+                *ngIf="!email.pristine && email.errors != null && email.errors['noEmail']">Invalid mail address</span>
+            </div>
+
+            <div class="input-field">
+              <input formControlName="password" type="password" id="password" class="validate" #password>
+              <label for="password" data-error="La contraseña debe tener al menos 8 carácteres"
+                     translate>common.password</label>
+            </div>
+            <div class="input-field">
+
+              <input formControlName="confirmPassword" type="password" id="confirm-password" class="validate"
+                     #confirmPassword>
+              <label for="confirm-password" translate>singup.confirmPassword</label>
+              <span
+                *ngIf=" confirmPassword.errors != null && confirmPassword.errors['passwordsNotMatch']">Passwords do not match</span>
+            </div>
+            <div class="s12 center">
+              <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary" translate>signup.register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-------------------------------------------- TOASTS --------------------------------------------------->
+<a (click)="triggerToast()" materialize [materializeParams]="['Sesión iniciada',4000]"
+   [materializeActions]="toastActions"></a>

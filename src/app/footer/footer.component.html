@@ -1,0 +1,39 @@
+<div appStyleApp [classCss]="'color1'" class="page-footer">
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col s6 m6 l6">
+        <span class="grey-text text-lighten-4 text-padding"  getDataApp [key]="'footerText'"></span>
+        <span class="grey-text text-lighten-4 text-padding"  appStyleApp [classCss]="'emailText'" getDataApp [key]="'emailCompany'"></span>
+        <span class="grey-text text-lighten-4 text-padding"  appStyleApp [classCss]="'telephoneText'" getDataApp [key]="'telephoneNumber'"></span>
+      </div>
+
+      <div class="col s6 m6 l6">
+        <a href="{{facebookLink}}" class="right" appStyleApp [classCss]="'facebookLink'" target="_blank"><img
+          class="media-icon"
+          src="../../assets/resources/facebook.png"/></a>
+        <a href="{{instagramLink}}" class="right" appStyleApp [classCss]="'instagramLink'" target="_blank"><img
+          class="media-icon"
+          src="../../assets/resources/instagram.png"/></a>
+        <a href="{{twitterLink}}" class="right" appStyleApp [classCss]="'twitterLink'" target="_blank"><img
+          class="media-icon"
+          src="../../assets/resources/twitter.png"/></a>
+
+        <a href="{{youtubeLink}}" class="right" appStyleApp [classCss]="'youtubeLink'" target="_blank"><img
+          class="media-icon"
+          src="../../assets/resources/youtube.png"/></a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="footer-copyright">
+    <div class="container no-padding ">
+      <a class="grey-text text-lighten-4 right mabu-link" href="http://mabu.es/"> Designed by Mabu.es</a>
+    </div>
+  </div>
+</div>
+
+

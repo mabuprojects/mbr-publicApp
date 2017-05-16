@@ -1,0 +1,42 @@
+<div *ngIf="cart.products.length>0">
+  <ul class="collection no-border">
+
+    <li *ngFor="let product of cart.products; let index=index" class="collection-item avatar">
+
+      <img [src]="urlImage+product.imageName" class="circle">
+      <span class="title">{{product.name}}</span>
+      <p>{{product.quantity}} und.<br>
+        {{product.totalPrice * product.quantity}} €
+      </p>
+      <p *ngFor="let option of product.options">{{option.optionName}}: {{option.optionLineName}}</p>
+
+      <a class="secondary-content pointer" (click)="deleteItem(index)"><i class="material-icons" appStyleApp
+                                                                          [classCss]="'color7'">delete</i></a>
+    </li>
+  </ul>
+
+  <br>
+
+  <div class="center">
+    <button type="button" (click)="redirectToPayment()" class="waves-effect waves-light btn" appStyleApp
+            [classCss]="'color4'"> Finalizar pedido
+      {{totalPrice}} €
+    </button>
+  </div>
+</div>
+
+
+<!--Empty List-->
+<div *ngIf="!cart.products.length>0">
+  <div class="card">
+    <div class="card-content">
+      <p class="center" translate>cart-component.empty</p>
+    </div>
+  </div>
+
+</div>
+
+<!-------------------------------------------- TOAST --------------------------------------------------->
+
+<a (click)="triggerToast()" materialize [materializeParams]="['Producto eliminado',4000]"
+   [materializeActions]="toastActions"></a>

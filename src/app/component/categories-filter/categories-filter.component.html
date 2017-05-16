@@ -1,0 +1,9 @@
+<div class="collection no-border">
+
+  <a *ngFor="let category of categories | async" class="collection-item pointer center"
+     (click)="filterByCategory(category.id)" [ngClass]="{'active' : category.id===categoryIdFilter}">
+    {{category.name}}
+  </a>
+
+</div>
+

@@ -1,0 +1,130 @@
+{
+  "common": {
+    "email": "Email",
+    "password": "Password",
+    "save": "Save",
+    "cancel": "Cancel",
+    "currency": "€"
+  },
+  "nav-bar": {
+    "signIn": "Log in",
+    "signUp": "Sign up",
+    "logout": "Log out",
+    "changeRestaurant": "Change restaurant",
+    "blog": "Blog",
+    "filter": "Filter",
+    "language": "Language",
+    "orders": "My orders",
+    "profile": "My profile"
+  },
+  "signin": {
+    "title": "Log in",
+    "enter": "Log in",
+    "register": "Sign up"
+  },
+  "signup": {
+    "title": "Sign up",
+    "NewUser": "New user",
+    "confirmPassword": "Repeat password",
+    "enter": "Log in",
+    "register": "Sign up"
+  },
+  "language": {
+    "English": "English",
+    "Spanish": "Spanish"
+  },
+  "cart-page": {
+    "cart": "Cart"
+  },
+  "main-page": {
+    "categories": "Categories",
+    "book-table": "Book tables"
+  },
+  "order-page": {
+    "title": "My orders",
+    "status": {
+      "PAID": "Paid",
+      "PENDING_PAYMENT": "Pending payment",
+      "NOT_PAID": "No paid",
+      "COOKING": "Cooking",
+      "SENDED": "Sended",
+      "CLOSED": "Closed",
+      "CANCELED": "Canceled"
+    }
+  },
+  "order-page-details": {
+    "title": "Order"
+  },
+  "payment-page": {
+    "title": "Order details",
+    "orderSummary": "Order summary",
+    "shippingAddress": "Shipping address",
+    "orderPreferences": "Order preferences",
+    "selectService": "Select a service",
+    "service": "Service",
+    "observations": "Observations",
+    "pay": "Pay",
+    "restaurantAddress":"Restaurant address",
+    "services": {
+      "DELIVERY": "Delivery",
+      "TAKE_AWAY": "Take away"
+    }
+  },
+  "product-page": {
+    "buy": "Buy",
+    "quantity": "Quantity"
+  },
+  "profile-page": {
+    "title": "My profile",
+    "name": "Name",
+    "address": "Address"
+  },
+  "select-restaurant-modal": {
+    "msg": "Select your restaurant",
+    "postalCode":"Postal code",
+    "noRestaurantError":"No matches."
+  },
+  "cart-component": {
+    "msg": "Finish order",
+    "empty": "Empty"
+  },
+  "address-form": {
+    "title": "Address",
+    "street": "Street*",
+    "number": "Number*",
+    "unity": "Unity*",
+    "pc": "Postal code*",
+    "city": "City*",
+    "state": "State*",
+    "country": "Country*",
+    "observations": "Observations"
+  },
+  "filter-products-modal": {
+    "title":"Filtrar by category"
+  },
+  "exceptions": {
+    "400": "Wrong status.",
+    "401": "Order has no products.",
+    "402": "Restaurant has not this service.",
+    "403": "Stripe exception.",
+    "404": "Order can not be paid.",
+    "405": "Restaurant not avaliable.",
+    "406": "Cash on delivery not avaliable.",
+    "407": "Product not avaliable.",
+    "408": "The postcode does not correspond to the restaurant area.",
+    "stripe": {
+      "invalid_number": "The card number is not a valid credit card number.",
+      "invalid_expiry_month": "The card's expiration month is invalid.",
+      "invalid_expiry_year": "The card's expiration year is invalid.",
+      "invalid_cvc": "The card's security code is invalid.",
+      "invalid_swipe_data": "The card's swipe data is invalid.",
+      "incorrect_number": "The card number is incorrect.",
+      "expired_card": "The card has expired.",
+      "incorrect_cvc": "The card's security code is incorrect.",
+      "incorrect_zip": "The card's zip code failed validation.",
+      "card_declined": "The card was declined.",
+      "missing": "There is no card on a customer that is being charged.",
+      "processing_error": "An error occurred while processing the card."
+    }
+  }
+}

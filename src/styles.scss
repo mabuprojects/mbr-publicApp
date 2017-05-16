@@ -1,0 +1,80 @@
+/* You can add global styles to this file, and also import other style files */
+$flag-icon-css-path: '~flag-icon-css/flags' !default;
+@import "../node_modules/flag-icon-css/sass/flag-icon";
+
+//@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600');
+//
+//body {
+//  font-family: 'Raleway', sans-serif;
+//  font-weight: 100;
+//  display: flex;
+//  min-height: 100vh;
+//  flex-direction: column;
+//}
+
+.no-margin {
+  margin: 0px;
+}
+
+.padding-top-subtitles{
+  padding-top: 8px;
+}
+
+.no-margin-top {
+  margin-top: 0px;
+}
+.no-margin-bottom {
+  margin-bottom: 0px;
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+.no-padding-top {
+  padding-top: 0px !important;
+}
+
+.no-padding-bottom {
+  padding-bottom: 0px !important;
+}
+
+app-root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.no-border {
+  border: 0px;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.title-section-mobile {
+  font-size: 15px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  top: 0px;
+  color: white;
+}
+.pointer{
+  cursor: pointer;
+}
+/*Override modal
+Cuando despliegas el modal si estas en movil
+ma mascara oscura se ve.*/
+.modal-overlay{
+  height: 200% !important;
+}
+
+
+agm-map {
+  display: block;
+  position: relative;
+  height: 200px !important;
+  width: 100% !important;
+}
+
