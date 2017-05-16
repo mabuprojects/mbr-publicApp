@@ -3,8 +3,8 @@ import {Http, Headers, RequestOptions, Response} from "@angular/http";
 import {Observable} from "rxjs";
 
 import {WebClientService} from "./web-client.service";
-import {Exception} from "../../../../mbr-privateApp/src/app/core/exception.component";
 import {ConfigService} from "./configuration/config.service";
+import {Exception} from "./exceptions/exception.component";
 
 @Injectable()
 export class EmployeeService {
