@@ -1,5 +1,5 @@
-import {Injectable, EventEmitter} from "@angular/core";
-import {Headers, Http, RequestOptions, Response} from "@angular/http";
+import {Injectable} from "@angular/core";
+import {Http, Response} from "@angular/http";
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/operator/map";
 import {Restaurant} from "../model/restaurant/restaurant.component";
@@ -15,16 +15,19 @@ export class RestaurantService {
   restaurantObservable: ReplaySubject<Restaurant>;
   restaurantsObservable: ReplaySubject<Restaurant[]>;
 
+  requesting: boolean = false;
+
   constructor(private http: Http, private configService: ConfigService) {
-    this.restaurantsObservable =new ReplaySubject(1);
+    this.restaurantsObservable = new ReplaySubject(1);
     this.restaurantObservable = new ReplaySubject(1);
 
   }
 
-  getRestaurantObservable(): Observable<Restaurant>{
+  getRestaurantObservable(): Observable<Restaurant> {
     return this.restaurantObservable;
   }
-  getRestaurantsObservable(): Observable<Restaurant[]>{
+
+  getRestaurantsObservable(): Observable<Restaurant[]> {
     return this.restaurantsObservable;
   }
 
@@ -38,16 +41,26 @@ export class RestaurantService {
 
     var request: boolean = true;
 
+    /*Si ya se ha hecho una petición para recuperar los restaurantes
+    * no es necesario hacer otra*/
     if (this.restaurants) {
       request = false;
     }
 
+    /*Si se quiere forzar el refresco*/
     request = refresh ? true : request;
 
     if (request) {
+      //Si ya hay una petición en curso no hago otra
+      if (this.requesting) {
+        return;
+      }
+      this.requesting = true;
+
       //No ha realizado la petición o quiere forzarla
       this.http.get(this.configService.getUrl('restaurant'))
         .map(response => {
+          this.requesting = false;
           this.restaurants = response.json();
           this.restaurantsObservable.next(this.restaurants);
         })
@@ -58,18 +71,7 @@ export class RestaurantService {
   }
 
 
-  /**
-   * Eliminar restaurante
-   * @param categoryId
-   * @returns {Observable<R>}
-   */
-  deleteRestaurante(restaurantId: number): Observable<boolean> {
-    return this.http.delete(this.configService.getUrl('restaurant') + `/${restaurantId}`)
-      .map((response: Response) => {
-        return true
-      })
-      .catch(this.handleError);
-  }
+
 
   /**
    *Devuelve un restaurante por el nombre
@@ -78,81 +80,30 @@ export class RestaurantService {
    * @param refresh
    * @returns {any}
    */
-  getRestaurantByName(restaurantName: string, refresh: boolean): void{
+  getRestaurantByName(restaurantName: string, refresh: boolean): void {
     var request: boolean = true;
 
+    /*Si ya se ha hecho una petición para recuperar los restaurantes
+     * no es necesario hacer otra*/
     if (this.restaurants) {
       request = false;
     }
-
+    /*Si se quiere forzar el refresco*/
     request = refresh ? true : request;
 
     if (request) {
-      //No ha realizado la petición o quiere forzarla
-      this.http.get(this.configService.getUrl('restaurant'))
-        .map(response => {
-          this.restaurants = response.json();
-          this.restaurantObservable.next(this.restaurants.find(r => r.name === restaurantName) as Restaurant);
-        })
-        .catch(this.handleError)
-        .subscribe();
-    }else{
+      this.getRestaurantsObservable().subscribe(rs => {
+        this.restaurantObservable.next(rs.find(r => r.name === restaurantName) as Restaurant)
+      });
+      //Si no hay una petición en curso la hago
+      if (!this.requesting) {
+        this.getRestaurants(false);
+      }
+
+    } else {
       this.restaurantObservable.next(this.restaurants.find(r => r.name === restaurantName) as Restaurant);
     }
   }
-
-  /**
-   * Crea un restaurante
-   *
-   * @param restaurant
-   * @returns {Observable<R>}
-   */
-  createRestaurant(restaurant: Restaurant): Observable<boolean> {
-
-    let body = JSON.stringify(restaurant);
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-
-    return this.http.post(this.configService.getUrl('restaurant'), body, options)
-      .map((response: Response) => {
-        return true
-      })
-      .catch(this.handleError);
-  }
-
-  /**
-   * Actualiza un restaurante
-   *
-   * @param restaurant
-   * @returns {Observable<R>}
-   */
-  updateRestaurant(restaurant: Restaurant): Observable<boolean> {
-    let body = JSON.stringify(restaurant);
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-
-    return this.http.patch(this.configService.getUrl('restaurant'), body, options)
-      .map((response: Response) => {
-        return true
-      })
-      .catch(this.handleError);
-  }
-
-  /**
-   * Devuelve true si hay algun restaurante con ese nombre
-   *
-   * @param restaurantName
-   * @returns {Observable<R>}
-   */
-  existRestaurantName(restaurantName: string): Observable<boolean> {
-
-    return this.http.get(`http://localhost:8080/public/restaurant/exists/${restaurantName}`)
-      .map(response => {
-        return response.json();
-      })
-      .catch(this.handleError);
-  }
-
 
   /**
    * Maneja los errores
@@ -160,6 +111,7 @@ export class RestaurantService {
    * @returns {any}
    */
   private handleError(error: Response) {
+    this.requesting = false;
     if (error.status == 400) {
       return Observable.throw(error.json() as Exception);
     }
