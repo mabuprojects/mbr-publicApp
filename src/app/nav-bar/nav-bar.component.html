@@ -29,7 +29,7 @@
 
 
     <ul id="dropdown1" class="dropdown-content dropdown-desktop">
-      <li><a routerLink="" routerLinkActive="active" translate>nav-bar.changeRestaurant</a></li>
+      <li><a routerLink="/" routerLinkActive="active" translate>nav-bar.changeRestaurant</a></li>
       <li *ngIf="autenticated"><a routerLink="/profile" routerLinkActive="active" (click)="closeSideNav()" translate>nav-bar.profile</a>
       <li *ngIf="autenticated"><a routerLink="/orders" routerLinkActive="active" (click)="closeSideNav()" translate>nav-bar.orders</a>
       </li>
@@ -44,7 +44,7 @@
   <ul class="side-nav" id="mobile-demo" style="width: 240px;">
     <li *ngIf="restaurantName"><a (click)="redirectToRestaurantPage()" routerLinkActive="active">Mas info
       {{restaurantName | async}}</a></li>
-    <li><a (click)="closeSideNav()" translate>nav-bar.changeRestaurant</a></li>
+    <li><a routerLink="/" (click)="closeSideNav()" translate>nav-bar.changeRestaurant</a></li>
     <li *ngIf="!autenticated"><a routerLink="/singin" (click)="closeSideNav()" routerLinkActive="active" translate>nav-bar.signIn</a>
     <li *ngIf="autenticated"><a routerLink="/profile" routerLinkActive="active" (click)="closeSideNav()" translate>nav-bar.profile</a>
     <li *ngIf="autenticated"><a routerLink="/orders" routerLinkActive="active" (click)="closeSideNav()" translate>nav-bar.orders</a>
