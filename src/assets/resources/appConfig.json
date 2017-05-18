@@ -1,0 +1,50 @@
+{
+  "serviceUrl": "http://localhost:8080",
+  "appData": {
+    "companyName": "Galipizza",
+    "stripeKey": "pk_test_rGNUZEgMVB8E47ySm5FHrIux",
+    "facebookLink": "https://www.facebook.com",
+    "twitterLink": "https://www.instagram.com",
+    "instagramLink": "https://www.twitter.com",
+    "youtubeLink": "https://www.youtube.com",
+    "emailCompany": "info@galipizza.com",
+    "telephoneNumber": "900 00 00",
+    "footerText": "Galipizza"
+  },
+  "urls": {
+    "product": "/public/product",
+    "productImage": "/public/image/product/",
+    "restaurant": "/public/restaurant",
+    "category": "/public/category",
+    "taxe": "/public/taxe",
+    "existRestaurantName": "public/restaurant/exist",
+    "user": "/user",
+    "employee": "/employee",
+    "employeeRoles": "/employee/roles",
+    "order": "/order",
+    "orderByClient": "/order/client",
+    "client": "/client",
+    "clientAddress": "/client/address",
+    "payOrder": "/order/pay",
+    "auth":"/auth",
+    "registerUser":"/public/user"
+  },
+  "appStyle": {
+    "color1": "teal darken-2",
+    "color2": "grey lighten-1",
+    "color3": "teal-text text-darken-2",
+    "color4": "blue",
+    "color5": "teal darken-2",
+    "color6": "red",
+    "color7": "teal-text text-darken-2",
+    "color8": "grey lighten-3",
+    "color9": "grey lighten-5",
+    "color10": "red lighten-1",
+    "facebookLink": "",
+    "twitterLink": "",
+    "instagramLink": "",
+    "youtubeLink": "",
+    "emailText": "hide",
+    "telephoneText": "hide"
+  }
+}

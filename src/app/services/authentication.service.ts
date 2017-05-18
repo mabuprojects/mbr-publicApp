@@ -41,7 +41,7 @@ export class AuthenticationService implements OnInit {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.post(this.config.get('serviceUrl') + '/auth', body, options)
+        return this.http.post(this.config.getUrl('/auth'), body, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;

@@ -17,7 +17,7 @@ export class UserRegisterService {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.post(this.config.get('serviceUrl') + '/public/user', body, options)
+        return this.http.post(this.config.getUrl('registerUser'), body, options)
             .map((response: Response) => {
                 return true
             })

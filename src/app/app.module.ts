@@ -1,5 +1,5 @@
 import {BrowserModule} from "@angular/platform-browser";
-import {NgModule} from "@angular/core";
+import {NgModule, APP_INITIALIZER} from "@angular/core";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpModule, Http} from "@angular/http";
 import {RouterModule} from "@angular/router";
@@ -47,8 +47,13 @@ import {FilterProductsModalComponent} from "./modal/filter-products-modal/filter
 import {RestaurantComponent} from "./component/restaurant/restaurant.component";
 import {OrderRequestComponent} from "./component/order-request/order-request.component";
 
+
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export function initConfig(config: ConfigService) {
+  return () => config.load()
 }
 
 @NgModule({
@@ -98,7 +103,28 @@ export function createTranslateLoader(http: Http) {
     RouterModule.forRoot(APP_ROUTES),
     MaterializeModule
   ],
-  providers: [AuthenticationService,AuthGuard, OrderService, WebClientService, ClientService, UserRegisterService, ProductService, RestaurantService, CartService, ConfigService, CategoryService],
+  providers: [
+    HttpModule,
+    ConfigService,
+    {
+      //Initialize configService with appConfig.json
+      provide: APP_INITIALIZER,
+      useFactory: initConfig,
+      deps: [ConfigService],
+      multi: true
+    },
+    AuthenticationService,
+    AuthGuard,
+    OrderService,
+    WebClientService,
+    ClientService,
+    UserRegisterService,
+    ProductService,
+    RestaurantService,
+    CartService,
+
+    CategoryService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
