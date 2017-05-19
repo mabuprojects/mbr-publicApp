@@ -35,8 +35,8 @@ export class OrderDetailsComponent extends ReuseFormComponent implements OnInit 
     this.route.params.subscribe(params => {
       this.orderId = +params['orderId'];
     });
-
-    this.orderService.findOrderById(this.orderId, false).subscribe(o => this.order = o);
+    this.orderService.getOrderObservable().subscribe(o => this.order = o);
+    this.orderService.findOrderById(this.orderId, false);
 
   }
 

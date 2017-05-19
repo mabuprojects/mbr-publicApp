@@ -10,8 +10,8 @@
       <!--PRODUCT-->
       <div class="card hoverable">
         <div class="center no-padding-top">
-          <img class="hide-on-med-and-down" style="max-width: 200px;" [src]="urlImage+product.imageName">
-          <img class="hide-on-large-only" style="max-width: 150px;" [src]="urlImage+product.imageName">
+          <img class="hide-on-med-and-down" draggable="false" style="max-width: 200px;" [src]="urlImage+product.imageName">
+          <img class="hide-on-large-only"  draggable="false" style="max-width: 150px;" [src]="urlImage+product.imageName">
         </div>
 
         <div class="card-content no-padding-top">
@@ -81,5 +81,5 @@
 
 <!-------------------------------------------- TOAST --------------------------------------------------->
 
-<a (click)="triggerToast()" materialize [materializeParams]="['Producto añadido',4000]"
+<a materialize [materializeParams]="['Producto añadido',4000]"
    [materializeActions]="toastActions"></a>

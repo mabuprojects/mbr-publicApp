@@ -15,7 +15,7 @@ export class ConfigService {
 
   public load() {
     return new Promise((resolve, reject) => {
-      this.http.get('/assets/resources/appConfig.json').map(res => res.json()).catch((error: any): any => {
+      this.http.get('assets/resources/appConfig.json').map(res => res.json()).catch((error: any): any => {
         console.error('Configuration file could not be read');
         resolve(true);
         return Observable.throw(error.json().error || 'Server error');

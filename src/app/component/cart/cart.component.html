@@ -1,4 +1,4 @@
-<div *ngIf="cart.products.length>0">
+<div *ngIf="cart.products.length">
   <ul class="collection no-border">
 
     <li *ngFor="let product of cart.products; let index=index" class="collection-item avatar">
@@ -27,7 +27,7 @@
 
 
 <!--Empty List-->
-<div *ngIf="!cart.products.length>0">
+<div *ngIf="!cart.products.length">
   <div class="card">
     <div class="card-content">
       <p class="center" translate>cart-component.empty</p>
@@ -38,5 +38,5 @@
 
 <!-------------------------------------------- TOAST --------------------------------------------------->
 
-<a (click)="triggerToast()" materialize [materializeParams]="['Producto eliminado',4000]"
+<a materialize [materializeParams]="['Producto eliminado',4000]"
    [materializeActions]="toastActions"></a>

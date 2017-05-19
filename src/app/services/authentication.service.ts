@@ -80,8 +80,6 @@ export class AuthenticationService implements OnInit {
         let options = new RequestOptions({headers: headers});
 
         this.http.get(this.config.getUrl('user'), options).subscribe(response => {
-            console.log("USUARIO RECIBIDO");
-            console.log(response.json());
             this.user = response.json() as User;
             if (this.user != null) {
                 this.roles=this.user.authorities.map(e => e.authority);

@@ -9,7 +9,7 @@
       <div class="card">
         <div class="card-content card-content-padding">
 
-          <!--ORDER SUMMARY-->
+          <!--ORDER SUMMARY-->s
           <h5 translate>payment-page.orderSummary</h5>
 
           <app-order-request></app-order-request>
@@ -21,8 +21,7 @@
 
             <div class="row">
               <div class="input-field col s12">
-                <select id="serviceType" materialize="material_select" formControlName="serviceType"
-                        [materializeSelectOptions]="selectOptions">
+                <select id="serviceType" materialize="material_select" formControlName="serviceType">
                   <option value="" disabled selected translate>payment-page.selectService</option>
                   <option *ngFor="let service of services" [value]="service" translate>
                     payment-page.services.{{service}}

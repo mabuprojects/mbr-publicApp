@@ -64,7 +64,7 @@
     "service": "Service",
     "observations": "Observations",
     "pay": "Pay",
-    "restaurantAddress":"Restaurant address",
+    "restaurantAddress": "Restaurant address",
     "services": {
       "DELIVERY": "Delivery",
       "TAKE_AWAY": "Take away"
@@ -81,8 +81,8 @@
   },
   "select-restaurant-modal": {
     "msg": "Select your restaurant",
-    "postalCode":"Postal code",
-    "noRestaurantError":"No matches."
+    "postalCode": "Postal code",
+    "noRestaurantError": "No matches."
   },
   "cart-component": {
     "msg": "Finish order",
@@ -100,7 +100,7 @@
     "observations": "Observations"
   },
   "filter-products-modal": {
-    "title":"Filtrar by category"
+    "title": "Filtrar by category"
   },
   "exceptions": {
     "400": "Wrong status.",
@@ -111,6 +111,7 @@
     "405": "Restaurant not avaliable.",
     "406": "Cash on delivery not avaliable.",
     "407": "Product not avaliable.",
+    "409": "User not have default card",
     "408": "The postcode does not correspond to the restaurant area.",
     "stripe": {
       "invalid_number": "The card number is not a valid credit card number.",

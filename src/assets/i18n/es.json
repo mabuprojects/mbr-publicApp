@@ -114,6 +114,7 @@
     "406": "No se puede pagar en el envío.",
     "407": "Producto no disponible.",
     "408": "El código postal no se corresponde con el área de este Restaurante.",
+    "409": "El usuario no tiene una tarjeta por defecto",
     "stripe": {
       "invalid_number": "El número de la tarjeta no es un número válido.",
       "invalid_expiry_month": "El mes de expiración de la tarjeta es inválido.",

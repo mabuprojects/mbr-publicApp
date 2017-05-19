@@ -8,8 +8,10 @@ import {PaymentRequest} from "../../model/order/payment-request.component";
 import {ConfigService} from "../../services/configuration/config.service";
 import {MaterializeAction} from "angular2-materialize/dist";
 import {Order} from "../../model/order/order.component";
-import {Observable} from "rxjs";
 import {ReuseFormComponent} from "../../shared/reuse-form/reuse-form.component";
+import {ClientService} from "../../services/client.service";
+import {Client} from "../../model/user/client.component";
+import {Observable} from "rxjs";
 
 declare var Stripe: any;
 
@@ -25,8 +27,9 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
   elements = this.stripe.elements();
   card;
   orderId: number;
-  order: Observable<Order>;
+  order: Order;
   error = false;
+  client: Observable<Client>;
   errorMessage = '';
   paymentForm: FormGroup;
   formValid: boolean = false;
@@ -37,18 +40,33 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
               private config: ConfigService,
               private translateService: TranslateService,
               private authenticationService: AuthenticationService,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              private clientService: ClientService) {
     super();
   }
 
 
   ngOnInit() {
+    this.order = new Order();
+    this.client = this.clientService.getClientDetails();
+
+
     this.route.params.subscribe(params => {
       this.orderId = +params['orderId'];
-      this.order = this.orderService.findOrderById(this.orderId, true);
+      this.orderService.getOrderObservable().subscribe(o => this.order = o);
+      this.orderService.findOrderById(this.orderId, true);
     });
 
-    this.paymentForm = this.fb.group({note: ""});
+    this.paymentForm = this.fb.group({savePaymentDetails: false, useDefaultCard: false});
+
+    //If useDefaultCard form is valid (Is not necessary card form)
+    this.paymentForm.valueChanges.subscribe(value => {
+      if (value.useDefaultCard) {
+        this.formValid = true;
+      } else {
+        this.formValid = false;
+      }
+    });
 
 
     // Custom styling can be passed to options when creating an Element.
@@ -92,16 +110,22 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
    * Create payment
    */
   submitPayment() {
-    this.stripe.createToken(this.card).then(function (result) {
-        if (result.error) {
-          // Inform the user if there was an error
-          var errorElement = document.getElementById('card-errors');
-          errorElement.textContent = result.error.message;
-        } else {
-          this.stripeTokenHandler(result.token.id);
-        }
-      }.bind(this)
-    );
+    var formValue = this.paymentForm.value;
+    if (formValue.useDefaultCard) {
+      this.stripeTokenHandler("");
+    } else {
+      this.stripe.createToken(this.card).then(function (result) {
+          if (result.error) {
+            // Inform the user if there was an error
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+          } else {
+            this.stripeTokenHandler(result.token.id);
+          }
+        }.bind(this)
+      );
+    }
+
 
   }
 
@@ -110,7 +134,8 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
    * @param tokenId
    */
   stripeTokenHandler(tokenId: string) {
-    var paymentRequest = new PaymentRequest(this.orderId, tokenId, false, false);
+    var formValue = this.paymentForm.value;
+    var paymentRequest = new PaymentRequest(this.orderId, tokenId, formValue.savePaymentDetails, formValue.useDefaultCard);
     this.orderService.payOrder(paymentRequest).subscribe(
       result => {
         if (result) {
