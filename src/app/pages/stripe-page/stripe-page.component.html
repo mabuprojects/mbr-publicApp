@@ -19,27 +19,29 @@
         <form [formGroup]="paymentForm" id="payment-form">
           <div class="form-row">
 
-            <div  ngif="!client.stripeId | async" class="input-field col s12">
+            <mbr-error-card [(error)]=error [errorMessage]=errorMessage></mbr-error-card>
+
+            <label [class.hide]="useDefaultCard" for="card-element">
+              Tarjeta de crédito o débito
+            </label>
+            <div [class.hide]="useDefaultCard" id="card-element"></div>
+
+
+            <div id="card-errors"></div>
+
+
+            <div [class.hide]="useDefaultCard"  class="input-field col s12">
               <input type="checkbox" id="savePaymentDetails" formControlName="savePaymentDetails"/>
               <label for="savePaymentDetails">Guardar datos de pago en Stripe.com</label>
             </div>
 
-            <div ngif="client.stripeId | async" class="input-field col s12">
+            <div [class.hide]="!hasDefaultCard" class="input-field col s12">
               <input type="checkbox" id="useDefaultCard" formControlName="useDefaultCard"/>
               <label for="useDefaultCard">Usar tarjeta por defecto</label>
             </div>
 
-            <mbr-error-card [(error)]=error [errorMessage]=errorMessage></mbr-error-card>
-            <br>
-            <br>
-            <br>
-            <label for="card-element">
-              Tarjeta de crédito o débito
-            </label>
-            <div id="card-element"></div>
 
 
-            <div id="card-errors"></div>
           </div>
           <br>
           <div class="right-align">

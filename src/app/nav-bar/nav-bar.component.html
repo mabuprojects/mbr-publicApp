@@ -2,6 +2,8 @@
 
 
   <!-------------------------------------------- NAVBAR COMMON --------------------------------------------------->
+  <a id="reserve"  class="hide-on-med-and-down reserve-button pointer" (click)="redirectToReservePage()"translate>main-page.reserve</a>
+
   <a (click)="redirectToMainPage()" class="brand-logo center title-nav">
     <span getDataApp [key]="'companyName'"></span>
     <span class="hide-on-med-and-down subtitle-nav-desktop">{{restaurantName | async}}</span>
@@ -19,12 +21,14 @@
   <!-------------------------------------------- NAVBAR DESKTOP --------------------------------------------------->
 
   <ul class="right hide-on-med-and-down">
-    <li><a materialize="dropdown" style="width:127px;" class="dropdown-button" data-activates="language" translate><i
+    <li><a materialize="dropdown"  style="width:127px;" class="dropdown-button" data-activates="language" translate><i
       class=" iconbar material-icons right" data-stoppropagation="true">language</i></a></li>
+
+
     <li *ngIf="!autenticated"><a routerLink="/singin" routerLinkActive="active" translate>nav-bar.signIn</a></li>
     <li><a (click)="redirectToCartPage()" routerLinkActive="active"><i class="material-icons">shopping_cart</i> <span
       class="shoppingCartNumberDesktop">{{itemNumber}}</span></a></li>
-    <li><a class="dropdown-button" data-activates="dropdown1"><i class="material-icons right">more_vert</i></a>
+    <li><a class="dropdown-button" materialize="dropdown" data-activates="dropdown1"><i class="material-icons right">more_vert</i></a>
     </li>
 
 

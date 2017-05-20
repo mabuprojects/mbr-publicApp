@@ -46,7 +46,6 @@ export class PaymentPageComponent extends ReuseFormComponent implements OnInit {
   constructor(private cartService: CartService,
               private clientService: ClientService,
               private orderService: OrderService,
-              private authenticationService: AuthenticationService,
               private translateService: TranslateService,
               private fb: FormBuilder,
               private productService: ProductService,

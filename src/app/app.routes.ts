@@ -8,9 +8,9 @@ import {PaymentPageComponent} from "./pages/payment-page/payment-page.component"
 import {OrderDetailsComponent} from "./pages/order-page/order-details/order-details.component";
 import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
 import {StripePageComponent} from "./pages/stripe-page/stripe-page.component";
-import {AddressFormComponent} from "./shared/address-form/address-form.component";
 import {RestaurantPageComponent} from "./pages/restaurant-page/restaurant-page.component";
 import {AuthGuard} from "./shared/auth-guard.service";
+import {ReservationPageComponent} from "./pages/reservation-page/reservation-page.component";
 
 
 export const APP_ROUTES = [
@@ -18,6 +18,7 @@ export const APP_ROUTES = [
   {path: 'product', component: ProductPageComponent},
   {path: 'singin', component: SinginComponent},
   {path: 'singup', component: SingupComponent},
+  {path: ':restaurantName/reserve', component: ReservationPageComponent},
   {path: 'orders', component: OrderPageComponent,canActivate: [AuthGuard]},
   {path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]},
   {path: 'payment', component: PaymentPageComponent, canActivate: [AuthGuard]},

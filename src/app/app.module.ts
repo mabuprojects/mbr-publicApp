@@ -46,6 +46,7 @@ import {AuthGuard} from "./shared/auth-guard.service";
 import {FilterProductsModalComponent} from "./modal/filter-products-modal/filter-products-modal.component";
 import {RestaurantComponent} from "./component/restaurant/restaurant.component";
 import {OrderRequestComponent} from "./component/order-request/order-request.component";
+import { ReservationPageComponent } from './pages/reservation-page/reservation-page.component';
 
 
 export function createTranslateLoader(http: Http) {
@@ -84,7 +85,8 @@ export function initConfig(config: ConfigService) {
     RestaurantPageComponent,
     FilterProductsModalComponent,
     RestaurantComponent,
-    OrderRequestComponent
+    OrderRequestComponent,
+    ReservationPageComponent
   ],
   imports: [
     BrowserModule,

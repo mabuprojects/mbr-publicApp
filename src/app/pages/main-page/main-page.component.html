@@ -1,11 +1,12 @@
 <div class="fluid-container materialize">
   <!--Buttons first row-->
   <div class="row hide-on-large-only initial-row no-margin-bottom">
-    <div class=" col s6 m6">
-      <!-- BOOK BUTTON -->
+    <div class=" col s10 m10">
+      <button type="button"
+              class="waves-effect waves-light btn reserve-button" routerLink="reserve"  style="width: 80%;" appStyleApp [classCss]="'color4'" translate>main-page.reserve</button>
     </div>
 
-    <div class=" col s6 m6">
+    <div class=" col s2 m2">
       <button type="button" (click)="activateFilterProductsModal()"
               [ngClass]="{'red':categoryIdFilter, 'grey':!categoryIdFilter}"
               class="right waves-effect waves-light btn small-padding-sides">

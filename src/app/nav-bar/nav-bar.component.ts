@@ -83,6 +83,15 @@ export class NavBarComponent implements OnInit {
     }
   }
 
+  redirectToReservePage() {
+    var restaurant = this.productService.getRestaurant();
+    if (restaurant) {
+      this.router.navigate([restaurant.name,'reserve']);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
+
   redirectToCartPage() {
     var restaurant = this.productService.getRestaurant();
     if (restaurant) {

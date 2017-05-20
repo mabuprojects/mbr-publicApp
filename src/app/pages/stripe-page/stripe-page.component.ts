@@ -10,8 +10,6 @@ import {MaterializeAction} from "angular2-materialize/dist";
 import {Order} from "../../model/order/order.component";
 import {ReuseFormComponent} from "../../shared/reuse-form/reuse-form.component";
 import {ClientService} from "../../services/client.service";
-import {Client} from "../../model/user/client.component";
-import {Observable} from "rxjs";
 
 declare var Stripe: any;
 
@@ -29,7 +27,8 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
   orderId: number;
   order: Order;
   error = false;
-  client: Observable<Client>;
+  hasDefaultCard: boolean = false;
+  useDefaultCard: boolean = false;
   errorMessage = '';
   paymentForm: FormGroup;
   formValid: boolean = false;
@@ -48,8 +47,11 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
 
   ngOnInit() {
     this.order = new Order();
-    this.client = this.clientService.getClientDetails();
-
+    this.clientService.getClientDetails().subscribe(c => {
+      if (c.stripeId) {
+        this.hasDefaultCard = true;
+      }
+    });
 
     this.route.params.subscribe(params => {
       this.orderId = +params['orderId'];
@@ -62,8 +64,10 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
     //If useDefaultCard form is valid (Is not necessary card form)
     this.paymentForm.valueChanges.subscribe(value => {
       if (value.useDefaultCard) {
+        this.useDefaultCard = true;
         this.formValid = true;
       } else {
+        this.useDefaultCard = false;
         this.formValid = false;
       }
     });
