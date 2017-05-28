@@ -7,3 +7,5 @@ ng build --aot --target=production --environment=prod --output-path cordova/www/
 cd cordova
 
 cordova build android
+
+nautilus ./platforms/android/build/outputs/apk
