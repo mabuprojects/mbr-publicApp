@@ -58,7 +58,16 @@
                      [inputvalidate]="addressForm.controls['observations']">
               <label for="observations" data-error="Obligatorio" translate>address-form.observations</label>
             </div>
+
+
+            <div [class.hide]="openMode!=='ORDER'" style="margin-top: 0px; margin-bottom: 10px;" class="input-field col s12 m12">
+              <input type="checkbox" id="saveAsDefaultAddress" formControlName="saveAsDefaultAddress"/>
+              <label for="saveAsDefaultAddress">Guardar como dirección por defecto.</label>
+            </div>
+
           </div>
+
+
 
           <div class="row">
             <div class="col s12">
@@ -71,6 +80,8 @@
                 </button>
               </div>
             </div>
+
+
             <div class="col s6">
               <div class="right">
 

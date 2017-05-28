@@ -20,10 +20,12 @@ declare var Stripe: any;
 })
 export class StripePageComponent extends ReuseFormComponent implements OnInit {
 
+
   stripe = Stripe(this.config.getAppData('stripeKey'));
   toastActions = new EventEmitter<string|MaterializeAction>();
   elements = this.stripe.elements();
   card;
+  last4 = "";
   orderId: number;
   order: Order;
   error = false;
@@ -32,6 +34,9 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
   errorMessage = '';
   paymentForm: FormGroup;
   formValid: boolean = false;
+  cardFormValid: boolean = false;
+  disableSubmitButton: boolean = false;
+
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
@@ -42,14 +47,16 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
               private orderService: OrderService,
               private clientService: ClientService) {
     super();
+    this.order = new Order();
   }
 
 
   ngOnInit() {
-    this.order = new Order();
+
     this.clientService.getClientDetails().subscribe(c => {
       if (c.stripeId) {
         this.hasDefaultCard = true;
+        this.last4 = c.last4CardDigits;
       }
     });
 
@@ -62,16 +69,23 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
     this.paymentForm = this.fb.group({savePaymentDetails: false, useDefaultCard: false});
 
     //If useDefaultCard form is valid (Is not necessary card form)
-    this.paymentForm.valueChanges.subscribe(value => {
-      if (value.useDefaultCard) {
+    this.paymentForm.controls['useDefaultCard'].valueChanges.subscribe(value => {
+      if (value) {
+        //Si usa la tarjeta por defecto
         this.useDefaultCard = true;
         this.formValid = true;
       } else {
-        this.useDefaultCard = false;
-        this.formValid = false;
+        //Si no usa la tarjeta por defecto
+        if (this.cardFormValid) {
+          //Pero tiene metida la tarjeta y esta correcta
+          this.useDefaultCard = false;
+        } else {
+          //No tiene correctamente relleno el formulario de la tarjeta
+          this.useDefaultCard = false;
+          this.formValid = false;
+        }
       }
     });
-
 
     // Custom styling can be passed to options when creating an Element.
     const style = {
@@ -104,8 +118,10 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
       const displayError = document.getElementById('card-errors');
       if (complete) {
         this.formValid = true;
+        this.cardFormValid = true;
       } else {
         this.formValid = false;
+        this.cardFormValid = false;
       }
     });
   }
@@ -114,12 +130,14 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
    * Create payment
    */
   submitPayment() {
+    this.disableSubmitButton = true;
     var formValue = this.paymentForm.value;
     if (formValue.useDefaultCard) {
       this.stripeTokenHandler("");
     } else {
       this.stripe.createToken(this.card).then(function (result) {
           if (result.error) {
+            this.disableSubmitButton = false;
             // Inform the user if there was an error
             var errorElement = document.getElementById('card-errors');
             errorElement.textContent = result.error.message;
@@ -143,11 +161,13 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
     this.orderService.payOrder(paymentRequest).subscribe(
       result => {
         if (result) {
+          this.disableSubmitButton = false;
           this.toastActions.emit('toast');
           this.router.navigate(['orders']);
         }
       },
       (err) => {
+        this.disableSubmitButton = false;
         this.error = true;
         if (err.id === 403) {
           this.translateService.get('exceptions.stripe.' + err.message).subscribe(msg => this.errorMessage = msg);

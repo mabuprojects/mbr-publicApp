@@ -5,10 +5,25 @@
 
       <img [src]="urlImage+product.imageName" class="circle">
       <span class="title">{{product.name}}</span>
-      <p>{{product.quantity}} und.<br>
-        {{product.totalPrice * product.quantity}} €
-      </p>
-      <p *ngFor="let option of product.options">{{option.optionName}}: {{option.optionLineName}}</p>
+
+      <div class="row">
+        <div class="col s6">
+          <p class="dataLabel">Unidades</p>
+          <p class="data">{{product.quantity}}</p>
+        </div>
+        <div class="col s6">
+          <p class="dataLabel">Precio total</p>
+          <p class="data">{{product.totalPrice * product.quantity}}€</p>
+        </div>
+
+        <div *ngFor="let option of product.options">
+          <div class="col s6">
+            <p class="dataLabel"> {{option.optionName}}</p>
+            <p class="data">{{option.optionLineName}}</p>
+          </div>
+        </div>
+
+      </div>
 
       <a class="secondary-content pointer" (click)="deleteItem(index)"><i class="material-icons" appStyleApp
                                                                           [classCss]="'color7'">delete</i></a>

@@ -9,7 +9,6 @@ import {Client} from "../../model/user/client.component";
 import {Address} from "../../model/address.component";
 import {ClientService} from "../../services/client.service";
 import {OrderService} from "../../services/order.service";
-import {AuthenticationService} from "../../services/authentication.service";
 import {ProductService} from "../../services/product.service";
 import {OrderRequest} from "../../model/order/order-request.component";
 import {OrderLineRequest} from "../../model/order/order-line-request.component";
@@ -86,13 +85,19 @@ export class PaymentPageComponent extends ReuseFormComponent implements OnInit {
 
     /* Compruebo si el zip code esta en el restaurante*/
     if (orderRequest.serviceType === 'DELIVERY') {
+      if (!this.address) {
+        this.hideAddress = false;
+        return;
+      }
       this.productService.getRestaurant().zipCodes.forEach(zipcode => {
         if (zipcode.toString() === orderRequest.address.postalCode) {
           zipcodeValid = true;
         }
       });
+    } else {
+      /*Si el servicio es diferente de Delivery, no es necesaria la comprobación del zipCode*/
+      zipcodeValid = true;
     }
-
 
     if (zipcodeValid) {
       this.buttonDisabled = true;
@@ -117,7 +122,7 @@ export class PaymentPageComponent extends ReuseFormComponent implements OnInit {
   }
 
   getOrderRequest(orderValue): OrderRequest {
-    var orderRequest = new OrderRequest(this.client.address, this.productService.getRestaurant().id,
+    var orderRequest = new OrderRequest(this.address, this.productService.getRestaurant().id,
       orderValue.serviceType, false, orderValue.note);
 
 
@@ -137,7 +142,7 @@ export class PaymentPageComponent extends ReuseFormComponent implements OnInit {
   }
 
   onBack(newAddress: Address) {
-    this.hideAddress = true;
+    this.openAddressForm();
     if (newAddress) {
       this.address = newAddress;
       this.addressString = this.getAddressFormated(this.address);

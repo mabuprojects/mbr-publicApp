@@ -7,26 +7,35 @@
 
       <div class="card">
         <div class="card-content">
-          <h5 translate>profile-page.name</h5>
-          <p>{{client.name}}</p>
+          <!--<h5 translate>profile-page.data</h5>-->
           <div class="row">
-            <div class="col s6">
-              <h5 translate>profile-page.address</h5>
+            <div class="col s12">
+              <p class="personalDataLabel">Email</p>
+              <p>{{client.email}}</p>
+              <p class="personalDataLabel">Name</p>
+              <p>{{client.name}}</p>
+              <p class="personalDataLabel">Bank card</p>
+              <p>***{{client.last4CardDigits}}</p>
+              <p class="personalDataLabel" translate>profile-page.address</p>
             </div>
-            <div class="col s6">
-              <button class="btn btn-success" appStyleApp [classCss]="'color4'" (click)="openAddressForm()"><i
-                class="small material-icons">mode_edit</i>
-              </button>
+            <div class="col s10">
+              <p>{{addressString}}</p>
+            </div>
+            <div class="col s2">
+              <div class="right">
+                <button class="btn btn-success small-padding-sides" appStyleApp [classCss]="'color4'"
+                        (click)="openAddressForm()"><i
+                  class="small material-icons">mode_edit</i>
+                </button>
+              </div>
             </div>
           </div>
-          <p>{{addressString}}</p>
         </div>
       </div>
-
     </div>
   </div>
 </div>
 <app-address-form [class.hide]="hideAddress" (onBack)="onBack($event)"></app-address-form>
 
-<a  materialize [materializeParams]="['Dirección actualizada',4000]"
+<a materialize [materializeParams]="['Dirección actualizada',4000]"
    [materializeActions]="toastUpdateActions"></a>

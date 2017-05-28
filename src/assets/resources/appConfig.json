@@ -1,5 +1,5 @@
 {
-  "serviceUrl": "http://192.168.0.10:8080",
+  "serviceUrl": "http://localhost:8080",
   "appData": {
     "companyName": "Galipizza",
     "stripeKey": "pk_test_rGNUZEgMVB8E47ySm5FHrIux",

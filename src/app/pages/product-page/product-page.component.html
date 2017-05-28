@@ -45,9 +45,7 @@
                       <select id={{option.value.id}} materialize="material_select" formControlName="active"
                               [materializeSelectOptions]="selectOptions">
                         <option [value]="empty">No</option>
-                        <option *ngFor="let optionLine of getoptionLines(option.value.id)" [value]="optionLine.id">
-                          {{optionLine.name}} (+ {{optionLine.optionLinePrices[0].priceAdded}} € )
-                        </option>
+                        <option *ngFor="let optionLine of getoptionLines(option.value.id)" [value]="optionLine.id">{{optionLine.name}} (+ {{optionLine.optionLinePrices[0].priceAdded}} €)</option>
                       </select>
                     </div>
                     <br>

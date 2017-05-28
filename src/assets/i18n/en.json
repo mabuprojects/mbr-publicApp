@@ -77,7 +77,7 @@
   },
   "profile-page": {
     "title": "My profile",
-    "name": "Name",
+    "data": "Data",
     "address": "Address"
   },
   "select-restaurant-modal": {

@@ -7,15 +7,35 @@
     <div class="card">
       <div class="card-content">
         <h5 translate> Resumen de pedido</h5>
+
         <div class="row">
-          <div class="col s12">
-            <p>Dirección: {{getAddressFormated(order.address)}}</p>
-            <p>Nota de pedido:{{order.clientNote}}</p>
-            <p>Tiempo estimado: {{order.estimatedPickupOrDeliveryTime}}</p>
-            <p>Precio total: {{order.totalPrice}}</p>
-            <p>Restaurante:{{order.restaurantId}}</p>
+          <div class="col s6">
+            <p class="dataLabel">Restaurante</p>
+            <p class="data">{{order.restaurantId}}</p>
           </div>
+
+          <div class="col s6">
+            <p class="dataLabel">Precio total</p>
+            <p class="data">{{order.totalPrice}}</p>
+          </div>
+
+
+          <div class="col s6">
+            <p class="dataLabel">Tiempo estimado</p>
+            <p class="data">{{order.estimatedPickupOrDeliveryTime}}</p>
+          </div>
+
+
+          <div class="col s6">
+            <p class="dataLabel">Nota de pedido</p>
+            <p class="data">{{order.clientNote}}</p>
+          </div>
+
+          <!--<p>Dirección: {{getAddressFormated(order.address)}}</p>-->
+
         </div>
+
+
         <form [formGroup]="paymentForm" id="payment-form">
           <div class="form-row">
 
@@ -30,28 +50,28 @@
             <div id="card-errors"></div>
 
 
-            <div [class.hide]="useDefaultCard"  class="input-field col s12">
+            <div [class.hide]="useDefaultCard" class="input-field col s12">
               <input type="checkbox" id="savePaymentDetails" formControlName="savePaymentDetails"/>
-              <label for="savePaymentDetails">Guardar datos de pago en Stripe.com</label>
+              <label for="savePaymentDetails">Guardar datos de pago en stripe.com</label>
             </div>
 
             <div [class.hide]="!hasDefaultCard" class="input-field col s12">
               <input type="checkbox" id="useDefaultCard" formControlName="useDefaultCard"/>
-              <label for="useDefaultCard">Usar tarjeta por defecto</label>
+              <label for="useDefaultCard">Usar tarjeta por defecto ****{{last4}}.</label>
             </div>
-
 
 
           </div>
           <br>
           <div class="right-align">
-            <img class="left-align" src="assets/resources/powered_by_stripe.svg">
+            <img class="left-align" style="margin-top: 15px;" src="assets/resources/powered_by_stripe.svg">
           </div>
           <br>
 
 
           <div class="center">
-            <button class="waves-effect waves-light btn" appStyleApp [classCss]="'color4'" [disabled]="!formValid"
+            <button class="waves-effect waves-light btn" appStyleApp [classCss]="'color4'"
+                    [disabled]="((!formValid) || disableSubmitButton)"
                     (click)="submitPayment()">Pagar
             </button>
           </div>
@@ -62,5 +82,5 @@
 </div>
 
 <!-------------------------------------------- TOASTS --------------------------------------------------->
-<a  materialize [materializeParams]="['Pago realizado',4000]"
+<a materialize [materializeParams]="['Pago realizado',4000]"
    [materializeActions]="toastActions"></a>

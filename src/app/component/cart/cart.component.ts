@@ -19,12 +19,12 @@ export class CartComponent implements OnInit {
   toastActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(private cartService: CartService, private config: ConfigService, private authenticationService: AuthenticationService, private router: Router) {
-  }
-
-  ngOnInit() {
     this.urlImage = this.config.getUrl("productImage");
     this.cart = this.cartService.getShoppingCart();
     this.totalPrice = this.cartService.getTotalPrice();
+  }
+
+  ngOnInit() {
   }
 
   deleteItem(index: number) {

@@ -1,10 +1,9 @@
-import {Component, OnInit, Output, Input, EventEmitter, ViewChild} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from "@angular/core";
 import {ReuseFormComponent} from "../reuse-form/reuse-form.component";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Address} from "../../model/address.component";
 import {ClientService} from "../../services/client.service";
-
 
 
 /**
@@ -21,7 +20,7 @@ export class AddressFormComponent extends ReuseFormComponent implements OnInit {
   addressForm: FormGroup;
 
   openMode: String;
-  disableForm: boolean=false;
+  disableForm: boolean = false;
   error = false;
   errorMessage = '';
 
@@ -37,7 +36,9 @@ export class AddressFormComponent extends ReuseFormComponent implements OnInit {
 
   initComponent(address: Address, openMode: String) {
     this.openMode = openMode;
-    this.createForm(address);
+    if (address) {
+      this.createForm(address);
+    }
   }
 
   createForm(address: Address) {
@@ -50,6 +51,7 @@ export class AddressFormComponent extends ReuseFormComponent implements OnInit {
       city: [address.city, Validators.required],
       country: [address.country, Validators.required],
       observations: address.observations,
+      saveAsDefaultAddress: false,
     });
 
   }
@@ -59,32 +61,43 @@ export class AddressFormComponent extends ReuseFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.disableForm=true;
+    this.disableForm = true;
     var address: Address = this.addressForm.value;
 
-    if (this.openMode==="PROFILE"){
-      this.clientService.setClientAddress(address).subscribe(result => {
-          if (result) {
-            this.disableForm=false;
-            this.onBack.emit(address);
-          }
-        },
-        (err) => {
-          this.disableForm=false;
-          this.error = true;
-          this.errorMessage = err.message;
-        });
-    }else{
+    if (this.openMode === "PROFILE") {
+      this.saveClientAddress(address);
+    } else {
       //openMode ==="ORDER"
-      this.disableForm=false;
-      this.onBack.emit(address);
+      if(this.addressForm.value.saveAsDefaultAddress){
+        //Si quiere guardar la dirección como la por defecto
+        this.saveClientAddress(address);
+      }else{
+        //Solo quiero usar esta direccion para este pedido
+        this.disableForm = false;
+        this.onBack.emit(address);
+      }
     }
 
 
   }
 
-  createEmptyAddress(): Address {
-    return new Address(' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+  saveClientAddress(address) {
+    this.clientService.setClientAddress(address).subscribe(result => {
+        if (result) {
+          this.disableForm = false;
+          this.onBack.emit(address);
+        }
+      },
+      (err) => {
+        this.disableForm = false;
+        this.error = true;
+        this.errorMessage = err.message;
+      });
   }
+
+  createEmptyAddress(): Address {
+    return new Address(' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+  }
+
 
 }

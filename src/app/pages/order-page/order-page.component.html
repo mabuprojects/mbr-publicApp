@@ -7,14 +7,31 @@
     <div class="collection no-border">
       <a *ngFor=" let order of orders | async; let index=index" class="collection-item pointer"
          routerLink="/orders/{{order.id}}">
-        <span class="title">{{order.created |  date:'shortDate' }}</span>
-        <p>{{order.created | date:'shortTime' }}<br>
-          {{order.totalPrice}} €<br>
-          {{order.status}}</p>
-        <button *ngIf="order.status==='PENDING_PAYMENT'" type="button" class="waves-effect waves-light btn"
-                [routerLink]="['/stripe',order.id]" appStyleApp [classCss]="'color4'">Pagar
-        </button>
+        <div class="row">
+          <div class="col s6">
+            <p class="dataLabel">Fecha</p>
+            <p class="data">{{order.created | date:'shortDate' }}</p>
+          </div>
+
+          <div class="col s6">
+            <p class="dataLabel">Hora</p>
+            <p class="data">{{order.created | date:'shortTime' }}</p>
+          </div>
+
+          <div class="col s6">
+            <p class="dataLabel">Precio total</p>
+            <p class="data">{{order.totalPrice}} €</p>
+          </div>
+
+          <div class="col s6">
+            <p class="dataLabel">Estado</p>
+            <p class="data" translate>order-page.status.{{order.status}}</p>
+          </div>
+
+        </div>
       </a>
     </div>
   </div>
 </div>
+
+

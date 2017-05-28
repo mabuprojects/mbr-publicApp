@@ -124,7 +124,6 @@ export function initConfig(config: ConfigService) {
     ProductService,
     RestaurantService,
     CartService,
-
     CategoryService
   ],
   bootstrap: [AppComponent]

@@ -31,28 +31,36 @@ export class SelectRestaurantModalComponent implements OnInit {
   constructor(private translateService: TranslateService, private router: Router, private fb: FormBuilder, private restaurantService: RestaurantService, private cartService: CartService, private productService: ProductService) {
     this.translateService.get('select-restaurant-modal.postalCode').subscribe(msg => this.postalCodeTranslation = msg);
     this.restaurantService.getRestaurantsObservable().subscribe(rs => {
+      if (rs.length === 1) {
+        //Si sólo hay un restaurante voy directamente a ese
+        this.onSelectRestaurant(rs[0]);
+        this.router.navigate([rs[0].name]);
+      }
       this.restaurants = rs;
       this.restaurantsBackup = rs
     });
-  }
-
-  ngOnInit() {
-    this.restaurantService.getRestaurants(false);
 
     this.pcForm = this.fb.group({
       pc: ['', Validators.required]
     });
+
+  }
+
+  ngOnInit() {
+    this.restaurantService.getRestaurants(false);
     this.pcForm.valueChanges.subscribe(value => this.onSubmit());
   }
 
   initModal() {
-    if (this.show) {
-      this.modalActions.emit({action: "modal", params: ['open']});
-    }
-  }
-
-  openModal() {
-    this.modalActions.emit({action: "modal", params: ['open']});
+    // if (this.restaurants) {
+    //   if (this.restaurants.length > 1) {
+    //     this.modalActions.emit({action: "modal", params: ['open']});
+    //   }
+    // } else {
+      if (this.show) {
+        this.modalActions.emit({action: "modal", params: ['open']});
+      }
+    // }
   }
 
   closeModal() {

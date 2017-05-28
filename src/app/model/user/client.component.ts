@@ -7,4 +7,5 @@ export class Client extends User {
   name: string;
   address: Address;
   stripeId: boolean;
+  last4CardDigits: string;
 }

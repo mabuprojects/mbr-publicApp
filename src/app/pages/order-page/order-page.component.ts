@@ -6,7 +6,8 @@ import {ReuseFormComponent} from "../../shared/reuse-form/reuse-form.component";
 
 @Component({
   selector: 'app-order-page',
-  templateUrl: 'order-page.component.html'
+  templateUrl: 'order-page.component.html',
+  styleUrls: ['./order-page.component.scss']
 })
 export class OrderPageComponent extends ReuseFormComponent implements OnInit {
 

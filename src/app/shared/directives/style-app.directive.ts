@@ -1,4 +1,4 @@
-import {Directive, Input, OnInit, ElementRef, Renderer2} from '@angular/core';
+import {Directive, Input, OnInit, ElementRef, Renderer2} from "@angular/core";
 import {ConfigService} from "../../services/configuration/config.service";
 
 @Directive({
@@ -12,12 +12,14 @@ export class StyleAppDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    var colors = this.config.getStyleApp(this.classCss);
-    if (colors) {
-      colors.split(" ").forEach(item => this.renderer.addClass(this.el.nativeElement, item));
+    var CssClasses = this.config.getStyleApp(this.classCss);
+    if (CssClasses) {
+      CssClasses.split(" ").forEach(item => {
+          if (item) {
+            this.renderer.addClass(this.el.nativeElement, item);
+          }
+        }
+      );
     }
-
   }
-
-
 }

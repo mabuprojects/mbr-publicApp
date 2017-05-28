@@ -9,7 +9,8 @@ import {ConfigService} from "../../../services/configuration/config.service";
 import {ReuseFormComponent} from "../../../shared/reuse-form/reuse-form.component";
 @Component({
   selector: 'app-order-details',
-  templateUrl: './order-details.component.html'
+  templateUrl: './order-details.component.html',
+  styleUrls: ['./order-details.component.scss']
 })
 export class OrderDetailsComponent extends ReuseFormComponent implements OnInit {
 

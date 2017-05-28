@@ -7,7 +7,8 @@ import {Address} from "../../model/address.component";
 import {ReuseFormComponent} from "../../shared/reuse-form/reuse-form.component";
 @Component({
   selector: 'app-profile-page',
-  templateUrl: './profile-page.component.html'
+  templateUrl: './profile-page.component.html',
+  styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent extends ReuseFormComponent implements OnInit {
 

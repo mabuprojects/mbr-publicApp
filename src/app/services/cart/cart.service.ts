@@ -11,7 +11,7 @@ export class CartService {
 
   constructor() {
     this.shoppingCart = new ShoppingCart();
-    this.shoppingCart.products = [];
+    this.shoppingCart.products = new Array<ProductCart>();
     this.itemsNumberObservable = new ReplaySubject(1);
   }
 
