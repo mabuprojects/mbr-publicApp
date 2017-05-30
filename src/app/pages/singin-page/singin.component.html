@@ -8,7 +8,7 @@
     <div class="card">
       <div class="card-content">
 
-        <mbr-error-card [(error)]=error [errorMessage]=errorMessage></mbr-error-card>
+
 
         <form [formGroup]="myForm" (ngSubmit)="onSignin()">
           <div class="form-group">
@@ -19,6 +19,8 @@
             <label for="password" translate>common.password</label>
             <input formControlName="password" type="password" id="password" class="form-control">
           </div>
+          <mbr-error-card [(error)]=error [errorMessage]=errorMessage></mbr-error-card>
+
           <div class="row">
             <div class="col s12 center">
               <button type="submit" [disabled]="!myForm.valid" appStyleApp [classCss]="'color4'"

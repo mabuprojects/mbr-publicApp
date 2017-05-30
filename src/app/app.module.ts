@@ -47,6 +47,7 @@ import {FilterProductsModalComponent} from "./modal/filter-products-modal/filter
 import {RestaurantComponent} from "./component/restaurant/restaurant.component";
 import {OrderRequestComponent} from "./component/order-request/order-request.component";
 import { ReservationPageComponent } from './pages/reservation-page/reservation-page.component';
+import {GoogleAnalyicsEventsService} from "./services/google-analyics-events.service";
 
 
 export function createTranslateLoader(http: Http) {
@@ -123,6 +124,7 @@ export function initConfig(config: ConfigService) {
     UserRegisterService,
     ProductService,
     RestaurantService,
+    GoogleAnalyicsEventsService,
     CartService,
     CategoryService
   ],

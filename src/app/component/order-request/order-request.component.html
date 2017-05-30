@@ -10,6 +10,7 @@
         <p class="data"> 0.00€</p>
       </div>
     </div>
+    <p class="dataLabel">Productos</p>
     <ul class="collection no-border">
       <li *ngFor="let product of cart.products; let index=index" class="collection-item avatar">
         <img [src]="urlImage+product.imageName" class="circle">

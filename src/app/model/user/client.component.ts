@@ -8,4 +8,5 @@ export class Client extends User {
   address: Address;
   stripeId: boolean;
   last4CardDigits: string;
+  mobile:string;
 }

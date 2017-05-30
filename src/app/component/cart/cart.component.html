@@ -7,17 +7,17 @@
       <span class="title">{{product.name}}</span>
 
       <div class="row">
-        <div class="col s6">
+        <div class="col s12 m6 l6">
           <p class="dataLabel">Unidades</p>
           <p class="data">{{product.quantity}}</p>
         </div>
-        <div class="col s6">
+        <div class="col s12 m6 l6 ">
           <p class="dataLabel">Precio total</p>
           <p class="data">{{product.totalPrice * product.quantity}}€</p>
         </div>
 
         <div *ngFor="let option of product.options">
-          <div class="col s6">
+          <div class="col s12 m6 l6">
             <p class="dataLabel"> {{option.optionName}}</p>
             <p class="data">{{option.optionLineName}}</p>
           </div>

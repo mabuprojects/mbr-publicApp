@@ -25,8 +25,8 @@
     "orderByClient": "/order/client",
     "client": "/client",
     "clientAddress": "/client/address",
-    "payOrder": "/order/pay",
-    "auth":"/auth",
+    "payOrder": "/order/payWithBankCard",
+    "auth":"/auth/client",
     "registerUser":"/public/user",
     "clientBankCard":"/client/bankCard"
   },
