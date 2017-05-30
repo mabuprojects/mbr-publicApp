@@ -6,36 +6,45 @@ import {Observable} from "rxjs";
  * Created by alejandro on 17/03/17.
  */
 @Injectable()
-export class WebClientService{
+export class WebClientService {
 
-    constructor(private http: Http, private auth: AuthenticationService) {
+  constructor(private http: Http, private auth: AuthenticationService) {
 
-    }
+  }
 
-    public secureGet(url:string):Observable<Response>{
-        let headers = new Headers({'Content-Type': 'application/json'});
+  public secureGet(url: string): Observable<Response> {
+    let headers = new Headers({'Content-Type': 'application/json'});
 
-        headers.append('Authorization', this.auth.token == null ? '' : this.auth.token);
-        let options = new RequestOptions({headers: headers});
-        return this.http.get(url, options);
+    headers.append('Authorization', this.auth.token == null ? '' : this.auth.token);
+    let options = new RequestOptions({headers: headers});
+    return this.http.get(url, options);
 
-    }
+  }
 
-    public securePost(url:string,body:any):Observable<Response>{
-        let headers = new Headers({'Content-Type': 'application/json'});
+  public securePost(url: string, body: any): Observable<Response> {
+    let headers = new Headers({'Content-Type': 'application/json'});
 
-        headers.append('Authorization', this.auth.token == null ? '' : this.auth.token);
-        let options = new RequestOptions({headers: headers});
-        return this.http.post(url,body,options);
+    headers.append('Authorization', this.auth.token == null ? '' : this.auth.token);
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(url, body, options);
 
-    }
+  }
 
-    public securePatch(url:string,body:any):Observable<Response>{
-        let headers = new Headers({'Content-Type': 'application/json'});
+  public secureDelete(url: string): Observable<Response> {
+    let headers = new Headers({'Content-Type': 'application/json'});
 
-        headers.append('Authorization', this.auth.token == null ? '' : this.auth.token);
-        let options = new RequestOptions({headers: headers});
-        return this.http.patch(url,body,options);
+    headers.append('Authorization', this.auth.token == null ? '' : this.auth.token);
+    let options = new RequestOptions({headers: headers});
+    return this.http.delete(url, options);
 
-    }
+  }
+
+  public securePatch(url: string, body: any): Observable<Response> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+
+    headers.append('Authorization', this.auth.token == null ? '' : this.auth.token);
+    let options = new RequestOptions({headers: headers});
+    return this.http.patch(url, body, options);
+
+  }
 }

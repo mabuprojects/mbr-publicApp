@@ -11,22 +11,22 @@ import {Exception} from "./exceptions/exception.component";
 export class ClientService {
 
 
-    constructor(private webClient: WebClientService, private configService: ConfigService) {
+  constructor(private webClient: WebClientService, private configService: ConfigService) {
 
-    }
+  }
 
   /**
    * Return client details
    *
    * @returns {Observable<R>}
    */
-    getClientDetails(): Observable<Client> {
-        return this.webClient.secureGet(this.configService.getUrl('client'))
-            .map(response => {
-                return response.json() as Client;
-            })
-            .catch(this.handleError);
-    }
+  getClientDetails(): Observable<Client> {
+    return this.webClient.secureGet(this.configService.getUrl('client'))
+      .map(response => {
+        return response.json() as Client;
+      })
+      .catch(this.handleError);
+  }
 
   /**
    *
@@ -34,25 +34,31 @@ export class ClientService {
    * @param address
    * @returns {Observable<R>}
    */
-    setClientAddress(address: Address): Observable<boolean> {
-        let body = JSON.stringify(address);
-        return this.webClient.securePost(this.configService.getUrl('clientAddress'), body)
-            .map((response: Response) => {
-                console.log('client address changed');
-                return true
-            })
-            .catch(this.handleError);
+  setClientAddress(address: Address): Observable<boolean> {
+    let body = JSON.stringify(address);
+    return this.webClient.securePost(this.configService.getUrl('clientAddress'), body)
+      .map((response: Response) => {
+        return true
+      })
+      .catch(this.handleError);
+  }
+
+  deleteBankCard(): Observable<boolean> {
+    return this.webClient.secureDelete(this.configService.getUrl('clientBankCard'))
+      .map((response: Response) => {
+        return true
+      })
+      .catch(this.handleError);
+  }
+
+
+  private handleError(error: Response) {
+    if (error.status == 400) {
+      return Observable.throw(error.json() as Exception);
     }
+    return Observable.throw(error.json());
 
-
-
-    private handleError(error: Response) {
-        if (error.status == 400) {
-            return Observable.throw(error.json() as Exception);
-        }
-        return Observable.throw(error.json());
-
-    }
+  }
 
 
 }

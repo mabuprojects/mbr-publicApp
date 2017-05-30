@@ -5,6 +5,7 @@ import {ClientService} from "../../services/client.service";
 import {Client} from "../../model/user/client.component";
 import {Address} from "../../model/address.component";
 import {ReuseFormComponent} from "../../shared/reuse-form/reuse-form.component";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
@@ -22,7 +23,7 @@ export class ProfilePageComponent extends ReuseFormComponent implements OnInit {
   @ViewChild(AddressFormComponent)
   private addressForm: AddressFormComponent;
 
-  constructor(private clientService: ClientService) {
+  constructor(private clientService: ClientService, private router: Router) {
     super();
   }
 
@@ -37,6 +38,7 @@ export class ProfilePageComponent extends ReuseFormComponent implements OnInit {
   openAddressForm() {
     this.hideAddress = !this.hideAddress;
     this.addressForm.initComponent(this.client.address, "PROFILE");
+
   }
 
   onBack(newAddress: Address) {
@@ -46,6 +48,15 @@ export class ProfilePageComponent extends ReuseFormComponent implements OnInit {
       this.addressString = this.getAddressFormated(this.client.address);
       this.toastUpdateActions.emit('toast');
     }
+  }
+
+  deleteBankCard() {
+    this.clientService.deleteBankCard().subscribe(c => {
+      this.clientService.getClientDetails().subscribe(c => {
+        this.client = c;
+        this.addressString = this.getAddressFormated(c.address);
+      });
+    });
   }
 
 }

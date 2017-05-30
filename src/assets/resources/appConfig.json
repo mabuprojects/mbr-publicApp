@@ -27,7 +27,8 @@
     "clientAddress": "/client/address",
     "payOrder": "/order/pay",
     "auth":"/auth",
-    "registerUser":"/public/user"
+    "registerUser":"/public/user",
+    "clientBankCard":"/client/bankCard"
   },
   "appStyle": {
     "color1": "teal darken-2",

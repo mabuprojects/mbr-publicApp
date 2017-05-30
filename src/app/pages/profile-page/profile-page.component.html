@@ -14,8 +14,26 @@
               <p>{{client.email}}</p>
               <p class="personalDataLabel">Name</p>
               <p>{{client.name}}</p>
-              <p class="personalDataLabel">Bank card</p>
-              <p>***{{client.last4CardDigits}}</p>
+            </div>
+
+            <!--Bank Card-->
+            <div [class.hide]="client.last4CardDigits===null">
+              <div class="col s12">
+                <p class="personalDataLabel">Bank card</p>
+              </div>
+
+              <div class="col s10">
+                <p>***{{client.last4CardDigits}}</p>
+              </div>
+              <div [class.hide]="client.last4CardDigits===null" class="col s2">
+                <div class="right">
+                  <button class="btn btn-success small-padding-sides red"
+                          (click)="deleteBankCard()"><i class="small material-icons">delete</i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col s12">
               <p class="personalDataLabel" translate>profile-page.address</p>
             </div>
             <div class="col s10">
