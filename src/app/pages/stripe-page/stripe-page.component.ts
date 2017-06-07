@@ -56,7 +56,6 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.orderId = +params['orderId'];
       this.orderService.findOrderById(this.orderId, true).subscribe(o => {
-        debugger;
         this.order = o;
       });
     });

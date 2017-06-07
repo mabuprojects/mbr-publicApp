@@ -1,12 +1,12 @@
 import {Component, OnInit, EventEmitter} from "@angular/core";
 import {Observable} from "rxjs";
-import {Book} from "../../model/book.component";
 import {BookService} from "../../services/book.service";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {Restaurant} from "../../model/restaurant/restaurant.component";
 import {RestaurantService} from "../../services/restaurant.service";
 import {ProductService} from "../../services/product.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {MaterializeAction} from "angular2-materialize";
 
 @Component({
   selector: 'app-reservation-page',
@@ -17,18 +17,18 @@ export class ReservationPageComponent implements OnInit {
 
 
   bookForm: FormGroup;
+  toastActions = new EventEmitter<string|MaterializeAction>();
   restaurant: Restaurant;
   restaurantObservable: Observable<Restaurant>;
   numberOfPersons: number = 1;
   hours: EventEmitter<{name: string;value: number}[]>;
-
-  bookHour = 7 * 60;
+  bookHour = null;
   name = "";
   phone = "";
-  date = new Date();
+  date = null;
   params = {min: new Date(), disable: []};
 
-  constructor(private bookService: BookService, private productService: ProductService, private route: ActivatedRoute, private restaurantService: RestaurantService, private formBuilder: FormBuilder) {
+  constructor(private bookService: BookService, private router: Router, private productService: ProductService, private route: ActivatedRoute, private restaurantService: RestaurantService, private formBuilder: FormBuilder) {
 
     this.restaurantObservable = this.restaurantService.getRestaurantObservable();
     this.hours = new EventEmitter<{name: string;value: number}[]>();
@@ -36,13 +36,14 @@ export class ReservationPageComponent implements OnInit {
 
     this.bookForm = this.formBuilder.group({
       numberOfPersons: [this.numberOfPersons, Validators.required],
-      bookHour: [this.bookHour],
-      date: [this.date],
+      bookHour: [this.bookHour, Validators.required],
+      date: [this.date, Validators.required],
     });
 
     this.bookForm.controls["date"].valueChanges
       .subscribe(date => {
         let day = new Date((this.bookForm.controls['date'].value).split("-").reverse().join("-"));
+        this.bookForm.controls['bookHour'].setValue(null);
         this.initHours(day.getDay());
       });
 
@@ -162,7 +163,10 @@ export class ReservationPageComponent implements OnInit {
     let hour = this.bookForm.controls['bookHour'].value;
 
     let numberOfPersons = this.bookForm.controls['numberOfPersons'].value;
-    this.bookService.book(day, hour, numberOfPersons);
+    this.bookService.book(day, hour, numberOfPersons).subscribe(r => {
+      this.toastActions.emit('toast');
+      this.router.navigate(['/books']);
+    })
   }
 
 }

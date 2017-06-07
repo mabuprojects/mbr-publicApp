@@ -7,7 +7,8 @@ export class Book {
   id: number;
   name: string;
   phone: string;
-  restaurant:Restaurant;
+  restaurantId:number;
   hour:Date;
   numberOfPersons:number;
+  state: string;
 }

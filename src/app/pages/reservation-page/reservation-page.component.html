@@ -4,34 +4,45 @@
       <p class="title-section-mobile " appStyleApp [classCss]="'color2'" translate>Reservas</p>
     </div>
 
-    <div class="row">
+    <div class="card">
+      <div class="card-content">
+        <div class="row">
 
-      <form materialize [formGroup]="bookForm" (ngSubmit)="onSubmit()">
-        <div class="input-field col s12 m6 l4">
-          <input id="numberOfPersons" type="text" formControlName="numberOfPersons"
-                 [inputvalidate]="bookForm.controls['numberOfPersons']">
-          <label for="numberOfPersons">Número de Personas</label>
-        </div>
+          <form materialize [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+            <div class="input-field col s12 m6 offset-m3 l4">
+              <input id="numberOfPersons" type="text" formControlName="numberOfPersons"
+                     [inputvalidate]="bookForm.controls['numberOfPersons']">
+              <label for="numberOfPersons">Número de Personas</label>
+            </div>
 
-        <div class="input-field col s12 m6 l4">
-          <input formControlName="date" type="date" placeholder="Seleccione una fecha" type="text" class="datepicker"
-                 materialize="pickadate"
-                 [materializeParams]="[params]" type="text">
+            <div class="input-field col s12  m6 offset-m3 l4">
+              <input id="date" formControlName="date" type="date" placeholder="Seleccione una fecha" type="text"
+                     class="datepicker"
+                     materialize="pickadate"
+                     [materializeParams]="[params]" type="text">
+              <label for="date">Fecha</label>
+            </div>
+            <div class="input-field col s12  m6 offset-m3 l4">
+              <select id="hour" formControlName="bookHour" placeholder="Seleccione la hora" materialize="material_select"
+                      [materializeSelectOptions]="hours | async">
+                <option *ngFor='let hour of hours | async' [value]="hour.value">{{hour.name}}</option>
+              </select>
+              <label for="hour">Hora</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+              <div class="center">
+                <button type="submit" class="btn btn-success center" [disabled]="bookForm.invalid" >Crear</button>
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="input-field col s12 m6 l4">
-          <select formControlName="bookHour" placeholder="Seleccione la hora" materialize="material_select"
-                  [materializeSelectOptions]="hours | async">
-            <option *ngFor='let hour of hours | async' [value]="hour.value">{{hour.name}}</option>
-          </select>
-        </div>
-        <div class="input-field col s12 m6 l4 right-align">
-          <div class="center">
-            <button type="submit" class="btn btn-success">Guardar</button>
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
-
 
   </div>
 </div>
+
+
+<!-------------------------------------------- TOASTS --------------------------------------------------->
+<a materialize [materializeParams]="['Reserva realizada',4000]"
+   [materializeActions]="toastActions"></a>

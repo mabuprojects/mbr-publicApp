@@ -90,7 +90,7 @@ export class BookService {
       .subscribe();
   }
 
-  book(day: Date, hour: number, numberOfPersons: number) {
+  book(day: Date, hour: number, numberOfPersons: number): Observable<boolean>  {
     day.setHours(Math.floor(hour / 60), Math.floor(hour % 60));
     day = new Date(day.getTime() - day.getTimezoneOffset() * 60000);
     let data = {
@@ -98,12 +98,12 @@ export class BookService {
       'hour': day.getTime(),
       'numberOfPersons': numberOfPersons,
     };
-    this.webClient.securePost(this.configService.getUrl('book'), data)
+    return this.webClient.securePost(this.configService.getUrl('book'), data)
       .map((response: Response) => {
         this.getBooks(true);
+        return true;
       })
-      .catch(this.handleError.bind(this))
-      .subscribe();
+      .catch(this.handleError.bind(this));
   }
 
   getRestaurantId() {

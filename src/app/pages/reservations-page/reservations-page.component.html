@@ -4,9 +4,49 @@
       <p class="title-section-mobile " appStyleApp [classCss]="'color2'" translate>Reservas</p>
     </div>
 
-    <div *ngFor="let book of books | async">
-      <p>{{book.name}}</p>
+
+    <div class="collection no-border">
+      <a *ngFor=" let book of books | async; let index=index" class="collection-item pointer">
+        <div class="row">
+          <div class="col s6">
+            <p class="dataLabel">Fecha </p>
+            <p class="data">{{book.hour | date:'shortDate' }} {{book.hour | date:'shortTime' }}</p>
+          </div>
+
+          <div class="col s6">
+            <p class="dataLabel">Restaurante</p>
+            <p class="data">{{book.restaurantId}} €</p>
+          </div>
+
+          <div class="col s6">
+            <p class="dataLabel">Número de personas</p>
+            <p class="data">{{book.numberOfPersons}}</p>
+          </div>
+
+          <div class="col s6">
+            <p class="dataLabel">Estado</p>
+            <p class="data">{{book.state}}</p>
+          </div>
+
+        </div>
+      </a>
     </div>
 
   </div>
 </div>
+
+<!--------------------------------------------   BUTTON NEW BOOK  --------------------------------------------------->
+
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large"  appStyleApp [classCss]="'color1'">
+    <i class="large material-icons" (click)="redirectNewBook()" >add</i>
+  </a>
+</div>
+
+
+
+
+
+
+
