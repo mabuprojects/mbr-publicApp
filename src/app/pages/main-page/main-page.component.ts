@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, ViewChild} from "@angular/core";
+import {Component, OnInit,OnDestroy, EventEmitter, ViewChild} from "@angular/core";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {MaterializeAction} from "angular2-materialize/dist";
@@ -15,7 +15,7 @@ import {FilterProductsNameModalComponent} from "../../modal/filter-products-name
   templateUrl: 'main-page.component.html',
   styleUrls: ['main-page.component.scss']
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit  {
 
   products: Product[];
   restaurant: Observable<Restaurant>;

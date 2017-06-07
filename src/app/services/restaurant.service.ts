@@ -6,6 +6,7 @@ import {Restaurant} from "../model/restaurant/restaurant.component";
 import {Observable, ReplaySubject} from "rxjs";
 import {ConfigService} from "./configuration/config.service";
 import {Exception} from "./exceptions/exception.component";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class RestaurantService {
@@ -17,7 +18,7 @@ export class RestaurantService {
 
   requesting: boolean = false;
 
-  constructor(private http: Http, private configService: ConfigService) {
+  constructor(private http: Http, private configService: ConfigService, private router: Router) {
     this.restaurantsObservable = new ReplaySubject(1);
     this.restaurantObservable = new ReplaySubject(1);
 
@@ -63,8 +64,10 @@ export class RestaurantService {
           this.requesting = false;
           this.restaurants = response.json();
           this.restaurantsObservable.next(this.restaurants);
+        },()=>{
+          this.router.navigate(['/error']);
         })
-        .catch(this.handleError)
+        .catch(this.handleError.bind(this))
         .subscribe();
     }
 
@@ -130,7 +133,7 @@ export class RestaurantService {
           this.restaurants = response.json();
           return this.restaurants.find(r => r.id === restaurantId) as Restaurant;
         })
-        .catch(this.handleError);
+        .catch(this.handleError.bind(this));
 
     } else {
       return Observable.of(this.restaurants.find(r => r.id === restaurantId) as Restaurant);
@@ -144,9 +147,13 @@ export class RestaurantService {
    */
   private handleError(error: Response) {
     this.requesting = false;
+
     if (error.status == 400) {
       return Observable.throw(error.json() as Exception);
+    } else if (error.status == 0){
+      this.router.navigate(['/error']);
     }
+
     return Observable.throw(error.json());
 
   }

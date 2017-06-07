@@ -7,6 +7,7 @@ import {Observable, ReplaySubject} from "rxjs";
 import {Category} from "../model/category.component";
 import {ConfigService} from "./configuration/config.service";
 import {Exception} from "./exceptions/exception.component";
+import {Router} from "@angular/router";
 
 
 
@@ -16,7 +17,7 @@ export class CategoryService {
     categories: Category[];
     categoriesObservable: ReplaySubject<Category[]>;
 
-    constructor(private http: Http, private configService: ConfigService) {
+    constructor(private http: Http, private configService: ConfigService, private router: Router) {
         this.categoriesObservable = new ReplaySubject(1);
     }
 
@@ -49,7 +50,7 @@ export class CategoryService {
                     this.categories = response.json();
                     this.categoriesObservable.next(this.categories);
                 })
-                .catch(this.handleError)
+                .catch(this.handleError.bind(this))
                 .subscribe();
         }
     }
@@ -68,7 +69,7 @@ export class CategoryService {
             .map((response: Response) => {
                 return true
             })
-            .catch(this.handleError);
+            .catch(this.handleError.bind(this));
     }
 
     /**
@@ -81,7 +82,7 @@ export class CategoryService {
             .map((response: Response) => {
                 return true
             })
-            .catch(this.handleError);
+            .catch(this.handleError.bind(this));
     }
 
     /**
@@ -101,7 +102,7 @@ export class CategoryService {
                     this.categories = response.json();
                     return this.categories.find(p => p.name === categoryName)
                 })
-                .catch(this.handleError);
+                .catch(this.handleError.bind(this));
         }
     }
 
@@ -120,7 +121,7 @@ export class CategoryService {
             .map((response: Response) => {
                 return true
             })
-            .catch(this.handleError);
+            .catch(this.handleError.bind(this));
     }
 
     /**
@@ -129,9 +130,11 @@ export class CategoryService {
      * @returns {any}
      */
     private handleError(error: Response) {
-        if (error.status == 400) {
-            return Observable.throw(error.json() as Exception);
-        }
+      if (error.status == 400) {
+        return Observable.throw(error.json() as Exception);
+      } else if (error.status == 0){
+        this.router.navigate(['/error']);
+      }
         return Observable.throw(error.json());
 
     }

@@ -4,11 +4,6 @@
       <p class="title-section-mobile " appStyleApp [classCss]="'color2'" translate>Reservas</p>
     </div>
 
-    <div *ngFor="let book of books | async">
-      <p>{{book.name}}</p>
-    </div>
-
-
     <div class="row">
 
       <form materialize [formGroup]="bookForm" (ngSubmit)="onSubmit()">
@@ -19,11 +14,13 @@
         </div>
 
         <div class="input-field col s12 m6 l4">
-          <input formControlName="date" type="date"  type="text" class="datepicker" materialize="pickadate"
+          <input formControlName="date" type="date" placeholder="Seleccione una fecha" type="text" class="datepicker"
+                 materialize="pickadate"
                  [materializeParams]="[params]" type="text">
         </div>
         <div class="input-field col s12 m6 l4">
-          <select formControlName="bookHour" placeholder="Seleccione la hora" materialize="material_select" [materializeSelectOptions]="hours | async">
+          <select formControlName="bookHour" placeholder="Seleccione la hora" materialize="material_select"
+                  [materializeSelectOptions]="hours | async">
             <option *ngFor='let hour of hours | async' [value]="hour.value">{{hour.name}}</option>
           </select>
         </div>

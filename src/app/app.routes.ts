@@ -11,6 +11,8 @@ import {StripePageComponent} from "./pages/stripe-page/stripe-page.component";
 import {RestaurantPageComponent} from "./pages/restaurant-page/restaurant-page.component";
 import {AuthGuard} from "./shared/auth-guard.service";
 import {ReservationPageComponent} from "./pages/reservation-page/reservation-page.component";
+import {ReservationsPageComponent} from "./pages/reservations-page/reservations-page.component";
+import {ErrorPageComponent} from "./pages/error-page/error-page.component";
 
 
 export const APP_ROUTES = [
@@ -18,9 +20,11 @@ export const APP_ROUTES = [
   {path: 'product', component: ProductPageComponent},
   {path: 'singin', component: SinginComponent},
   {path: 'singup', component: SingupComponent},
-  {path: ':restaurantName/reserve', component: ReservationPageComponent},
+  {path: ':restaurantName/book', component: ReservationPageComponent},
+  {path: 'books', component: ReservationsPageComponent},
   {path: 'orders', component: OrderPageComponent,canActivate: [AuthGuard]},
   {path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'error', component: ErrorPageComponent},
   {path: 'payment', component: PaymentPageComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]},
   {path: 'stripe/:orderId', component: StripePageComponent, canActivate: [AuthGuard]},

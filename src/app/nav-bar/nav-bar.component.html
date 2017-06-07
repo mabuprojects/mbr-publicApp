@@ -52,6 +52,7 @@
     <li *ngIf="!autenticated"><a routerLink="/singin" (click)="closeSideNav()" routerLinkActive="active" translate>nav-bar.signIn</a>
     <li *ngIf="autenticated"><a routerLink="/profile" routerLinkActive="active" (click)="closeSideNav()" translate>nav-bar.profile</a>
     <li *ngIf="autenticated"><a routerLink="/orders" routerLinkActive="active" (click)="closeSideNav()" translate>nav-bar.orders</a>
+    <li *ngIf="autenticated"><a routerLink="/books" routerLinkActive="active" (click)="closeSideNav()" translate>Mis reservas</a>
 
       <div *ngIf="autenticated" class="divider"></div>
     <li *ngIf="autenticated"><a routerLinkActive="active" (click)="logOut()" translate>nav-bar.logout</a></li>

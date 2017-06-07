@@ -7,6 +7,7 @@ import {PaymentRequest} from "../model/order/payment-request.component";
 import {Order} from "../model/order/order.component";
 import {ConfigService} from "./configuration/config.service";
 import {Exception} from "./exceptions/exception.component";
+import {Router} from "@angular/router";
 
 /**
  * Created by alejandro on 15/04/17.
@@ -21,7 +22,7 @@ export class OrderService {
   orderObservable: ReplaySubject<Order>;
   private restaurantId: number = 1;
 
-  constructor(private webClient: WebClientService, private configService: ConfigService) {
+  constructor(private webClient: WebClientService, private configService: ConfigService, private router: Router) {
     this.ordersObservable = new ReplaySubject(1);
     this.orderObservable = new ReplaySubject(1);
   }
@@ -69,7 +70,7 @@ export class OrderService {
           this.orders = response.json();
           this.ordersObservable.next(this.orders);
         })
-        .catch(this.handleError)
+        .catch(this.handleError.bind(this))
         .subscribe();
     }
 
@@ -92,7 +93,7 @@ export class OrderService {
           this.orders = response.json();
           return this.orders.find(o => o.id === id);
         })
-        .catch(this.handleError);
+        .catch(this.handleError.bind(this).bind(this));
     } else {
       return Observable.of(this.orders.find(o => o.id === id));
     }
@@ -107,7 +108,7 @@ export class OrderService {
       .map((response: Response) => {
         return response.json() as Order
       })
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
 
@@ -115,10 +116,9 @@ export class OrderService {
     let body = JSON.stringify(paymentRequest);
     return this.webClient.securePost(this.configService.getUrl('payOrder'), body)
       .map((response: Response) => {
-        console.log('payment done');
         return true
       })
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
 
@@ -130,8 +130,10 @@ export class OrderService {
   private handleError(error: Response) {
     if (error.status == 400) {
       return Observable.throw(error.json() as Exception);
+    } else if (error.status == 0){
+      this.router.navigate(['/error']);
     }
-    return Observable.throw(error.json());
+    return Observable.throw(error.json().bind(this));
 
   }
 

@@ -15,7 +15,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ReservationPageComponent implements OnInit {
 
-  books: Observable<Book[]>;
+
   bookForm: FormGroup;
   restaurant: Restaurant;
   restaurantObservable: Observable<Restaurant>;
@@ -29,7 +29,7 @@ export class ReservationPageComponent implements OnInit {
   params = {min: new Date(), disable: []};
 
   constructor(private bookService: BookService, private productService: ProductService, private route: ActivatedRoute, private restaurantService: RestaurantService, private formBuilder: FormBuilder) {
-    this.books = this.bookService.getBooksObservable();
+
     this.restaurantObservable = this.restaurantService.getRestaurantObservable();
     this.hours = new EventEmitter<{name: string;value: number}[]>();
 
@@ -41,21 +41,15 @@ export class ReservationPageComponent implements OnInit {
     });
 
     this.bookForm.controls["date"].valueChanges
-      .debounceTime(100) // wait a litle after the user input (ms)
       .subscribe(date => {
-        if (date) {
-          let day = new Date((this.bookForm.controls['date'].value).split("-").reverse().join("-"));
-          console.log('Día' + day.getDay());
-          this.initHours(day.getDay());
-        }
-
+        let day = new Date((this.bookForm.controls['date'].value).split("-").reverse().join("-"));
+        this.initHours(day.getDay());
       });
 
   }
 
   ngOnInit() {
     this.configureRestuarantByUrl();
-    this.bookService.getBooks(true);
   }
 
 
@@ -92,8 +86,8 @@ export class ReservationPageComponent implements OnInit {
     if (!this.restaurant.timeTable) {
       return;
     }
-    this.params.disable = this.restaurant.timeTable.days.map(d => (d.openDinner || d.openMorning) ? null : this.dayToInt(d.day) + 1).filter(d => d != null);
-    this.params = Object.assign({}, this.params);
+    this.params.disable = this.restaurant.timeTable.days.filter(d => !(d.openDinner || d.openMorning)).map(d => this.dayToInt(d.day));
+    // this.params = Object.assign({}, this.params);
     dayOfWeek++;
     if (dayOfWeek == 7) {
       dayOfWeek = 0;

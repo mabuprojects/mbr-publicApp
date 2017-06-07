@@ -45,7 +45,6 @@ export class CartService {
 
   deleteProduct(index: number) {
     var productCart = this.shoppingCart.products.pop();
-    debugger;
     this.googleAnalytics.removeProductEvent(productCart.id.toString(), productCart.name, productCart.quantity);
     this.shoppingCart.products.splice(index, 1);
     this.emitItemsNumberObservable();

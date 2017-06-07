@@ -5,6 +5,7 @@ import {Book} from "../model/book.component";
 import {WebClientService} from "./web-client.service";
 import {ConfigService} from "./configuration/config.service";
 import {Exception} from "./exceptions/exception.component";
+import {Router} from "@angular/router";
 
 
 @Injectable()
@@ -15,7 +16,7 @@ export class BookService {
   private restaurantId: number = 1;
 
 
-  constructor(private webClient: WebClientService, private configService: ConfigService) {
+  constructor(private webClient: WebClientService, private configService: ConfigService, private router: Router) {
     this.booksObservable = new ReplaySubject(1);
 
   }
@@ -53,7 +54,7 @@ export class BookService {
           this.books = response.json();
           this.booksObservable.next(this.books);
         })
-        .catch(this.handleError)
+        .catch(this.handleError.bind(this))
         .subscribe();
     }
 
@@ -68,6 +69,8 @@ export class BookService {
   private handleError(error: Response) {
     if (error.status == 400) {
       return Observable.throw(error.json() as Exception);
+    } else if (error.status == 0){
+      this.router.navigate(['/error']);
     }
     return Observable.throw(error.json());
 
@@ -83,7 +86,7 @@ export class BookService {
       .map((response: Response) => {
         this.getBooks(true);
       })
-      .catch(this.handleError)
+      .catch(this.handleError.bind(this))
       .subscribe();
   }
 
@@ -99,7 +102,7 @@ export class BookService {
       .map((response: Response) => {
         this.getBooks(true);
       })
-      .catch(this.handleError)
+      .catch(this.handleError.bind(this))
       .subscribe();
   }
 

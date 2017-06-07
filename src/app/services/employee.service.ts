@@ -5,13 +5,14 @@ import {Observable} from "rxjs";
 import {WebClientService} from "./web-client.service";
 import {ConfigService} from "./configuration/config.service";
 import {Exception} from "./exceptions/exception.component";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class EmployeeService {
 
     public newUser:EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor(private webClient: WebClientService, private http: Http, private config: ConfigService) {
+    constructor(private webClient: WebClientService, private http: Http, private config: ConfigService, private router: Router) {
     }
 
     registerEmployee(email: String, password: String, name: String, roles: number[]) {
@@ -24,14 +25,16 @@ export class EmployeeService {
             .map((response: Response) => {
                 return true
             })
-            .catch(this.handleSingInError);
+            .catch(this.handleSingInError.bind(this));
 
     }
 
     private handleSingInError(error: any) {
-        if (error.status == 400) {
-            return Observable.throw(error.json() as Exception);
-        }
+      if (error.status == 400) {
+        return Observable.throw(error.json() as Exception);
+      } else if (error.status == 0){
+        this.router.navigate(['/error']);
+      }
         return Observable.throw(error.json());
 
     }

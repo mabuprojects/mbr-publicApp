@@ -6,12 +6,13 @@ import {Response} from "@angular/http";
 import {Address} from "../model/address.component";
 import {ConfigService} from "./configuration/config.service";
 import {Exception} from "./exceptions/exception.component";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class ClientService {
 
 
-  constructor(private webClient: WebClientService, private configService: ConfigService) {
+  constructor(private webClient: WebClientService, private configService: ConfigService, private router: Router) {
 
   }
 
@@ -25,7 +26,7 @@ export class ClientService {
       .map(response => {
         return response.json() as Client;
       })
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
   /**
@@ -40,7 +41,7 @@ export class ClientService {
       .map((response: Response) => {
         return true
       })
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
   deleteBankCard(): Observable<boolean> {
@@ -48,13 +49,15 @@ export class ClientService {
       .map((response: Response) => {
         return true
       })
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
 
   private handleError(error: Response) {
     if (error.status == 400) {
       return Observable.throw(error.json() as Exception);
+    } else if (error.status == 0){
+      this.router.navigate(['/error']);
     }
     return Observable.throw(error.json());
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Input} from "@angular/core";
+import {Component, OnInit, EventEmitter, Input, OnDestroy} from "@angular/core";
 import {MaterializeAction} from "angular2-materialize/dist";
 import {CartService} from "../../services/cart/cart.service";
 import {Restaurant} from "../../model/restaurant/restaurant.component";
@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
   selector: 'app-select-restaurant-modal',
   templateUrl: 'select-restaurant-modal.component.html'
 })
-export class SelectRestaurantModalComponent implements OnInit {
+export class SelectRestaurantModalComponent implements OnInit,OnDestroy {
 
   pcForm: FormGroup;
   restaurants: Restaurant[];
@@ -57,15 +57,21 @@ export class SelectRestaurantModalComponent implements OnInit {
     //     this.modalActions.emit({action: "modal", params: ['open']});
     //   }
     // } else {
-      if (this.show) {
-        this.modalActions.emit({action: "modal", params: ['open']});
-      }
+    if (this.show) {
+      this.modalActions.emit({action: "modal", params: ['open']});
+    }
     // }
   }
 
   closeModal() {
     this.modalActions.emit({action: "modal", params: ['close']});
   }
+
+
+  ngOnDestroy(): void {
+    this.closeModal();
+  }
+
 
   onSelectRestaurant(restaurant: Restaurant): void {
     this.closeModal();

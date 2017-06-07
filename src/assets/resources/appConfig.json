@@ -29,7 +29,7 @@
     "auth":"/auth/client",
     "registerUser":"/public/user",
     "clientBankCard":"/client/bankCard",
-    "book":"/book/client/restaurantBook",
+    "book":"/book/client",
     "books":"/book/client"
   },
   "appStyle": {

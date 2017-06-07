@@ -6,6 +6,7 @@ import {Observable, ReplaySubject} from "rxjs";
 import {ConfigService} from "./configuration/config.service";
 import {Exception} from "./exceptions/exception.component";
 import {Taxe} from "../model/taxe.component";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class TaxeService {
@@ -14,7 +15,7 @@ export class TaxeService {
     taxesObservable: ReplaySubject<Taxe[]>;
 
 
-    constructor(private http: Http, private configService: ConfigService) {
+    constructor(private http: Http, private configService: ConfigService, private router: Router) {
         this.taxesObservable = new  ReplaySubject(1);
 
     }
@@ -46,7 +47,7 @@ export class TaxeService {
                     this.taxes = response.json();
                     this.taxesObservable.next(this.taxes);
                 })
-                .catch(this.handleError)
+                .catch(this.handleError.bind(this))
                 .subscribe();
         }
 
@@ -67,7 +68,7 @@ export class TaxeService {
             .map((response: Response) => {
                 return true
             })
-            .catch(this.handleError);
+            .catch(this.handleError.bind(this));
     }
 
 
@@ -86,7 +87,7 @@ export class TaxeService {
             .map((response: Response) => {
                 return true
             })
-            .catch(this.handleError);
+            .catch(this.handleError.bind(this));
     }
 
     /**
@@ -100,7 +101,7 @@ export class TaxeService {
             .map((response: Response) => {
                 return true
             })
-            .catch(this.handleError);
+            .catch(this.handleError.bind(this));
     }
 
     /**
@@ -120,7 +121,7 @@ export class TaxeService {
                     this.taxes = response.json();
                     return this.taxes.find(t => t.name === taxeName)
                 })
-                .catch(this.handleError);
+                .catch(this.handleError.bind(this));
         }
     }
 
@@ -130,9 +131,11 @@ export class TaxeService {
      * @returns {any}
      */
     private handleError(error: Response) {
-        if (error.status == 400) {
-            return Observable.throw(error.json() as Exception);
-        }
+      if (error.status == 400) {
+        return Observable.throw(error.json() as Exception);
+      } else if (error.status == 0){
+        this.router.navigate(['/error']);
+      }
         return Observable.throw(error.json());
 
     }

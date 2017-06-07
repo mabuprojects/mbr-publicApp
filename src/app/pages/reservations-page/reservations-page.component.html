@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col s12 m12 l6 offset-l3">
+    <div class="center padding-top-subtitles">
+      <p class="title-section-mobile " appStyleApp [classCss]="'color2'" translate>Reservas</p>
+    </div>
+
+    <div *ngFor="let book of books | async">
+      <p>{{book.name}}</p>
+    </div>
+
+  </div>
+</div>

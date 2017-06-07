@@ -52,6 +52,8 @@ import {BookService} from "./services/book.service";
 import {FilterProductsByNamePipe} from "./pipes/filter-products-by-name.pipe";
 import { FilterProductsNameModalComponent } from './modal/filter-products-name-modal/filter-products-name-modal.component';
 import { ProductNameFilterComponent } from './component/product-name-filter/product-name-filter.component';
+import { ReservationsPageComponent } from './pages/reservations-page/reservations-page.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 
 export function createTranslateLoader(http: Http) {
@@ -94,7 +96,9 @@ export function initConfig(config: ConfigService) {
     OrderRequestComponent,
     ReservationPageComponent,
     FilterProductsNameModalComponent,
-    ProductNameFilterComponent
+    ProductNameFilterComponent,
+    ReservationsPageComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
