@@ -30,6 +30,7 @@ export class OrderService {
   getOrdersObservable(): Observable<Order[]> {
     return this.ordersObservable;
   }
+
   getOrderObservable(): Observable<Order> {
     return this.orderObservable;
   }
@@ -74,8 +75,7 @@ export class OrderService {
 
   }
 
-  findOrderById(id: number, refresh: boolean): void {
-
+  findOrderById(id: number, refresh: boolean): Observable<Order> {
     var request: boolean = true;
 
     /*Si ya se ha hecho una petición para recuperar los restaurantes
@@ -87,15 +87,14 @@ export class OrderService {
     request = refresh ? true : request;
 
     if (request) {
-      this.getOrdersObservable().subscribe(rs => {
-        this.orderObservable.next(rs.find(o => o.id === id));
-      });
-      //Si no hay una petición en curso la hago
-      if (!this.requesting) {
-        this.getOrdersByClient(false);
-      }
+      return this.webClient.secureGet(this.configService.getUrl('orderByClient'))
+        .map(response => {
+          this.orders = response.json();
+          return this.orders.find(o => o.id === id);
+        })
+        .catch(this.handleError);
     } else {
-      this.orderObservable.next(this.orders.find(o => o.id === id));
+      return Observable.of(this.orders.find(o => o.id === id));
     }
 
 

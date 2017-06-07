@@ -1,13 +1,24 @@
 <div class="fluid-container materialize">
   <!--Buttons first row-->
   <div class="row hide-on-large-only initial-row no-margin-bottom">
-    <div class=" col s10 m10">
+    <div class=" col s8 m8">
       <button type="button"
-              class="waves-effect waves-light btn reserve-button" appStyleApp [classCss]="'color4'" routerLink="reserve"  style="width: 80%;" appStyleApp [classCss]="'color4'" translate>main-page.reserve</button>
+              class="waves-effect waves-light btn reserve-button grey"  routerLink="reserve"
+              style="width: 95%;" appStyleApp [classCss]="'color4'" translate>main-page.reserve
+      </button>
     </div>
 
     <div class=" col s2 m2">
-      <button type="button" (click)="activateFilterProductsModal()"
+
+      <button type="button" (click)="activateFilterProductsByNameModal()"
+              [ngClass]="{'red':productNameFilter, 'grey':!productNameFilter}"
+              class="right waves-effect waves-light btn small-padding-sides2">
+        <i class="large material-icons">search</i>
+      </button>
+    </div>
+
+    <div class=" col s2 m2">
+      <button type="button" (click)="activateFilterProductsByCategoryModal()"
               [ngClass]="{'red':categoryIdFilter, 'grey':!categoryIdFilter}"
               class="right waves-effect waves-light btn small-padding-sides">
         <i class="large material-icons">filter_list</i><i [ngClass]="{'hide':!categoryIdFilter}"
@@ -18,18 +29,30 @@
 
   <div class="row no-padding-top">
 
-    <!--FILTER CATEGORIES (ONLY DESKTOP)-->
-    <div class="col l2 hide-on-med-and-down">
-      <div class="center padding-top-subtitles">
-        <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>main-page.categories</p>
+    <!--FILTER PRODUCTS (ONLY DESKTOP)-->
+    <div class="col l2 xl2  hide-on-med-and-down">
+
+      <div class="row">
+        <div class="col s12">
+          <div class="center padding-top-subtitles">
+            <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>Filtrar por nombre</p>
+          </div>
+          <app-product-name-filter (productName)="setProductNameFilter($event)"></app-product-name-filter>
+        </div>
+
+        <div class="col s12">
+          <div class="center padding-top-subtitles">
+            <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>Filtrar por categorías</p>
+          </div>
+          <app-categories-filter (categoryId)="setCategoryId($event)"></app-categories-filter>
+        </div>
       </div>
-      <app-categories-filter (categoryId)="setCategoryId($event)"></app-categories-filter>
     </div>
 
     <!--MAIN CONTENT-->
-    <div class="col s12 m12 l8">
-      <div class="col s6 m4 l3"
-           *ngFor="let product of (products | filterProductsByCategory:categoryIdFilter )">
+    <div class="col s12 m12 l8 xl8">
+      <div class="col s6 m4 l4 xl3"
+           *ngFor="let product of (products | filterProductsByCategory:categoryIdFilter | filterProductsByName:productNameFilter)">
         <div class="row no-margin">
           <app-product-card [product]="product"></app-product-card>
         </div>
@@ -37,7 +60,7 @@
     </div>
 
     <!--CART ITEMS (ONLY DESKTOP)-->
-    <div class="col l2 hide-on-med-and-down ">
+    <div class="col l2 xl2 hide-on-med-and-down ">
       <div class="center padding-top-subtitles">
         <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>cart-page.cart</p>
       </div>
@@ -54,3 +77,4 @@
 
 <app-filter-products-modal (categoryId)="setCategoryId($event)"></app-filter-products-modal>
 
+<app-filter-products-name-modal (productNameFilter)="setProductNameFilter($event)"></app-filter-products-name-modal>

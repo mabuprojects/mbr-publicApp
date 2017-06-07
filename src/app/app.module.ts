@@ -48,6 +48,10 @@ import {RestaurantComponent} from "./component/restaurant/restaurant.component";
 import {OrderRequestComponent} from "./component/order-request/order-request.component";
 import { ReservationPageComponent } from './pages/reservation-page/reservation-page.component';
 import {GoogleAnalyicsEventsService} from "./services/google-analyics-events.service";
+import {BookService} from "./services/book.service";
+import {FilterProductsByNamePipe} from "./pipes/filter-products-by-name.pipe";
+import { FilterProductsNameModalComponent } from './modal/filter-products-name-modal/filter-products-name-modal.component';
+import { ProductNameFilterComponent } from './component/product-name-filter/product-name-filter.component';
 
 
 export function createTranslateLoader(http: Http) {
@@ -67,6 +71,7 @@ export function initConfig(config: ConfigService) {
     FooterComponent,
     ProductPageComponent,
     ProfilePageComponent,
+    FilterProductsByNamePipe,
     SinginComponent,
     SingupComponent,
     FilterProductsByCategoryPipe,
@@ -87,7 +92,9 @@ export function initConfig(config: ConfigService) {
     FilterProductsModalComponent,
     RestaurantComponent,
     OrderRequestComponent,
-    ReservationPageComponent
+    ReservationPageComponent,
+    FilterProductsNameModalComponent,
+    ProductNameFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +127,7 @@ export function initConfig(config: ConfigService) {
     AuthGuard,
     OrderService,
     WebClientService,
+    BookService,
     ClientService,
     UserRegisterService,
     ProductService,

@@ -1,5 +1,5 @@
 {
-  "serviceUrl": "http://localhost:8080",
+  "serviceUrl": "http://192.168.0.10:8080",
   "appData": {
     "companyName": "Galipizza",
     "stripeKey": "pk_test_rGNUZEgMVB8E47ySm5FHrIux",
@@ -28,7 +28,9 @@
     "payOrder": "/order/payWithBankCard",
     "auth":"/auth/client",
     "registerUser":"/public/user",
-    "clientBankCard":"/client/bankCard"
+    "clientBankCard":"/client/bankCard",
+    "book":"/book/client/restaurantBook",
+    "books":"/book/client"
   },
   "appStyle": {
     "color1": "teal darken-2",

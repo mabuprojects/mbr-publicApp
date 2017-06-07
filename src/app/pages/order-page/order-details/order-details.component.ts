@@ -17,6 +17,7 @@ export class OrderDetailsComponent extends ReuseFormComponent implements OnInit 
   orderId: number;
   order: Order;
   urlImage: string;
+  restaurantName: string = "";
 
 
   constructor(private route: ActivatedRoute,
@@ -29,16 +30,20 @@ export class OrderDetailsComponent extends ReuseFormComponent implements OnInit 
               private productService: ProductService) {
     super();
     this.urlImage = this.config.getUrl("productImage");
+
+    this.order = new Order();
+
   }
 
+
   ngOnInit() {
-    this.order = new Order();
     this.route.params.subscribe(params => {
       this.orderId = +params['orderId'];
-    });
-    this.orderService.getOrderObservable().subscribe(o => this.order = o);
-    this.orderService.findOrderById(this.orderId, false);
 
+      this.orderService.findOrderById(this.orderId, true).subscribe(o => {
+        this.order = o;
+      });
+    });
   }
 
 

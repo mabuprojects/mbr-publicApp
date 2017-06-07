@@ -42,7 +42,7 @@ export class RestaurantService {
     var request: boolean = true;
 
     /*Si ya se ha hecho una petición para recuperar los restaurantes
-    * no es necesario hacer otra*/
+     * no es necesario hacer otra*/
     if (this.restaurants) {
       request = false;
     }
@@ -69,8 +69,6 @@ export class RestaurantService {
     }
 
   }
-
-
 
 
   /**
@@ -102,6 +100,40 @@ export class RestaurantService {
 
     } else {
       this.restaurantObservable.next(this.restaurants.find(r => r.name === restaurantName) as Restaurant);
+    }
+  }
+
+
+  /**
+   *Devuelve un restaurante por el nombre
+   *
+   * @param restaurantId
+   * @param refresh
+   * @returns {any}
+   */
+  getRestaurantById(restaurantId: number, refresh: boolean): Observable<Restaurant> {
+    var request: boolean = true;
+
+    /*Si ya se ha hecho una petición para recuperar los restaurantes
+     * no es necesario hacer otra*/
+    if (this.restaurants) {
+      request = false;
+    }
+    /*Si se quiere forzar el refresco*/
+    request = refresh ? true : request;
+
+    if (request) {
+      this.requesting = true;
+      this.http.get(this.configService.getUrl('restaurant'))
+        .map(response => {
+          this.requesting = false;
+          this.restaurants = response.json();
+          return this.restaurants.find(r => r.id === restaurantId) as Restaurant;
+        })
+        .catch(this.handleError);
+
+    } else {
+      return Observable.of(this.restaurants.find(r => r.id === restaurantId) as Restaurant);
     }
   }
 

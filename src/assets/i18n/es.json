@@ -83,7 +83,7 @@
     "address": "Dirección"
   },
   "select-restaurant-modal": {
-    "msg": "Selecciona tu restaurante",
+    "msg": "Seleccione su restaurante",
     "postalCode": "Código postal",
     "noRestaurantError": "No hay coincidencias"
   },

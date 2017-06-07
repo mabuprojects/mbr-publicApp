@@ -7,6 +7,7 @@ import {Restaurant} from "../../model/restaurant/restaurant.component";
 import {Product} from "../../model/product.component";
 import {RestaurantService} from "../../services/restaurant.service";
 import {FilterProductsModalComponent} from "../../modal/filter-products-modal/filter-products-modal.component";
+import {FilterProductsNameModalComponent} from "../../modal/filter-products-name-modal/filter-products-name-modal.component";
 
 
 @Component({
@@ -20,13 +21,18 @@ export class MainPageComponent implements OnInit {
   restaurant: Observable<Restaurant>;
   restaurants: Observable<Restaurant[]>;
   categoryIdFilter: number | null = null;
+  productNameFilter: string | null = null;
   restaurantName: string;
 
   modalActions = new EventEmitter<string|MaterializeAction>();
 
 
   @ViewChild(FilterProductsModalComponent)
-  private filterModal: FilterProductsModalComponent;
+  private filterCategoryModal: FilterProductsModalComponent;
+
+
+  @ViewChild(FilterProductsNameModalComponent)
+  private filterNameModal: FilterProductsNameModalComponent;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -67,9 +73,17 @@ export class MainPageComponent implements OnInit {
   setCategoryId(categoryId: number | null) {
     this.categoryIdFilter = categoryId;
   }
+  setProductNameFilter(productName: string | null) {
+    this.productNameFilter = productName;
+  }
 
-  activateFilterProductsModal() {
-    this.filterModal.openModal();
+
+  activateFilterProductsByCategoryModal() {
+    this.filterCategoryModal.openModal();
+  }
+
+  activateFilterProductsByNameModal() {
+    this.filterNameModal.openModal();
   }
 
   get showChangeRestaurantModal() {

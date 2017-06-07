@@ -17,7 +17,7 @@
           <form [formGroup]="orderForm" novalidate>
 
             <!--ORDER PREFERECES-->
-            <h5 translate>payment-page.orderPreferences</h5>
+            <h5 class="second-title" translate>payment-page.orderPreferences</h5>
 
             <div class="row">
               <div class="input-field col s12">
@@ -57,23 +57,27 @@
               </div>
             </div>
           </div>
-
-          <!--RESTAURANT ADDRESS-->
-          <div [class.hide]="orderForm.controls['serviceType'].value!='TAKE_AWAY'">
-            <h5 translate>payment-page.restaurantAddress</h5>
-            <div class="row">
-              <div class="s12">
-                <app-restaurant [restaurant]="restaurant"></app-restaurant>
-              </div>
-            </div>
-          </div>
-
           <mbr-error-card [(error)]=error [errorMessage]=errorMessage></mbr-error-card>
 
           <div class="center">
-            <button type="button" [disabled]="orderForm.invalid || buttonDisabled" (click)="createOrder()"
+
+            <button [class.hide]="buttonDisabled===true" type="button" [disabled]="orderForm.invalid || buttonDisabled " (click)="createOrder()"
                     class="waves-effect waves-light btn " appStyleApp [classCss]="'color4'"> Pagar {{totalPrice}} €
             </button>
+
+            <!--spinner-->
+            <div [class.hide]="buttonDisabled===false" class="preloader-wrapper small active ">
+              <div class="spinner-layer spinner-blue-only ">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+              </div>
+            </div>
+
           </div>
 
 

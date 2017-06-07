@@ -10,6 +10,7 @@ export class Order {
   client: Client;
   address: Address;
   restaurantId: number;
+  restaurantName: string;
   serviceType: string;
   estimatedPickupOrDeliveryTime: Date;
   totalPrice: number;
@@ -28,6 +29,7 @@ export class Order {
     this.estimatedPickupOrDeliveryTime = new Date();
     this.totalPrice = 0;
     this.clientNote = '';
+    this.restaurantName = '';
   }
 
 }

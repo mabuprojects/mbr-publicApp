@@ -15,6 +15,7 @@ import {OrderLineRequest} from "../../model/order/order-line-request.component";
 import {OrderLinePriceRequest} from "../../model/order/order-line-price-request.component";
 import {TranslateService} from "@ngx-translate/core";
 import {Restaurant} from "../../model/restaurant/restaurant.component";
+import {GoogleAnalyicsEventsService} from "../../services/google-analyics-events.service";
 
 
 @Component({
@@ -47,6 +48,7 @@ export class PaymentPageComponent extends ReuseFormComponent implements OnInit {
               private orderService: OrderService,
               private translateService: TranslateService,
               private fb: FormBuilder,
+              private googleAnalytics: GoogleAnalyicsEventsService,
               private productService: ProductService,
               private router: Router) {
     super();
@@ -104,6 +106,8 @@ export class PaymentPageComponent extends ReuseFormComponent implements OnInit {
       this.orderService.createOrder(orderRequest).subscribe(
         order => {
           if (order) {
+            this.googleAnalytics.checkoutEvent();
+            this.googleAnalytics.transactionEvent();
             this.router.navigate(['/stripe', order.id]);
             this.cartService.deleteShoppingCart();
             this.buttonDisabled = false;
@@ -122,9 +126,13 @@ export class PaymentPageComponent extends ReuseFormComponent implements OnInit {
   }
 
   getOrderRequest(orderValue): OrderRequest {
-    var orderRequest = new OrderRequest(this.address, this.productService.getRestaurant().id,
-      orderValue.serviceType, false, orderValue.note);
-
+    if (orderValue!=='DELIVERY'){
+      var orderRequest = new OrderRequest(this.address, this.productService.getRestaurant().id,
+        orderValue.serviceType, false, orderValue.note);
+    }else{
+      var orderRequest = new OrderRequest(null, this.productService.getRestaurant().id,
+        orderValue.serviceType, false, orderValue.note);
+    }
 
     this.cart.products.forEach(productCart => {
       var ol = new OrderLineRequest(productCart.id, productCart.quantity);

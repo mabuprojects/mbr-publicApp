@@ -3,11 +3,11 @@
  */
 export class Day {
   id: number;
-  day:number;
+  day;
   openMorning:boolean;
-  openingMorning:Date;
-  lastHourToMorningBook:Date;
+  openingMorning:number;
+  lastHourToMorningBook:number;
   openDinner:boolean;
-  openingDinner:Date;
-  lastHourToDinnerBook:Date;
+  openingDinner:number;
+  lastHourToDinnerBook:number;
 }

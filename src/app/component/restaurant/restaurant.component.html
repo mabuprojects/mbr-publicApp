@@ -1,10 +1,13 @@
-<p>Direccion: {{getAddressFormated(restaurant.address)}}</p>
-<p>Número: {{restaurant.phoneNumber}}</p>
-<p>Horario</p>
+<p class="personalDataLabel">Direccion</p>
+<p>{{getAddressFormated(r.address)}}</p>
+<p class="personalDataLabel">Número de teléfono</p>
+<p>{{r.phoneNumber}}</p>
+<p class="personalDataLabel">Horario</p>
+<p></p>
+<p class="personalDataLabel">Ubicación</p>
+
 
 <div class="center">
-  <agm-map [latitude]="restaurant.address.latitude" [zoom]="15" [longitude]="restaurant.address.longitude">
-    <agm-marker [latitude]="restaurant.address.latitude"
-                [longitude]="restaurant.address.longitude"></agm-marker>
+  <agm-map [latitude]="lat" [zoom]="10" [longitude]="long">
   </agm-map>
 </div>

@@ -43,15 +43,24 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
               private router: Router,
               private config: ConfigService,
               private translateService: TranslateService,
-              private authenticationService: AuthenticationService,
               private orderService: OrderService,
               private clientService: ClientService) {
     super();
     this.order = new Order();
+    this.paymentForm = this.fb.group({savePaymentDetails: false, useDefaultCard: false});
   }
 
 
   ngOnInit() {
+
+    this.route.params.subscribe(params => {
+      this.orderId = +params['orderId'];
+      this.orderService.findOrderById(this.orderId, true).subscribe(o => {
+        debugger;
+        this.order = o;
+      });
+    });
+
 
     this.clientService.getClientDetails().subscribe(c => {
       if (c.stripeId) {
@@ -60,13 +69,6 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
       }
     });
 
-    this.route.params.subscribe(params => {
-      this.orderId = +params['orderId'];
-      this.orderService.getOrderObservable().subscribe(o => this.order = o);
-      this.orderService.findOrderById(this.orderId, true);
-    });
-
-    this.paymentForm = this.fb.group({savePaymentDetails: false, useDefaultCard: false});
 
     //If useDefaultCard form is valid (Is not necessary card form)
     this.paymentForm.controls['useDefaultCard'].valueChanges.subscribe(value => {
@@ -157,13 +159,18 @@ export class StripePageComponent extends ReuseFormComponent implements OnInit {
    */
   stripeTokenHandler(tokenId: string) {
     var formValue = this.paymentForm.value;
+
+    //Si uso la tarjeta por defecto no necesito guardar los datos de pago
+    if (formValue.useDefaultCard){
+      formValue.savePaymentDetails=false;
+    }
     var paymentRequest = new PaymentRequest(this.orderId, tokenId, formValue.savePaymentDetails, formValue.useDefaultCard);
     this.orderService.payOrder(paymentRequest).subscribe(
       result => {
         if (result) {
           this.disableSubmitButton = false;
           this.toastActions.emit('toast');
-          this.router.navigate(['orders']);
+          this.router.navigate(['orders',this.order.id]);
         }
       },
       (err) => {

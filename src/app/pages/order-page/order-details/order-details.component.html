@@ -24,25 +24,34 @@
             <p class="data" translate>order-page.status.{{order.status}}</p>
           </div>
 
-
           <div class="col s6">
-            <p class="dataLabel">Dirección</p>
-            <p class="data" translate>{{getAddressFormated(order.address)}}</p>
+            <p class="dataLabel">Tipo de pedido</p>
+            <p class="data" translate>payment-page.services.{{order.serviceType}}</p>
           </div>
 
-          <div class="col s6">
+
+          <div [class.hide]="order.estimatedPickupOrDeliveryTime==null"  class="col s6">
             <p class="dataLabel">Tiempo estimado</p>
             <p class="data" translate>{{order.estimatedPickupOrDeliveryTime}}</p>
           </div>
 
           <div class="col s6">
             <p class="dataLabel">Restaurante</p>
-            <p class="data" translate>{{order.restaurantId}}</p>
-          </div>
+            <a  class="data" [routerLink]="['/'+order.restaurantName,'info']"  translate>{{order.restaurantName}}</a>
+             </div>
 
-          <div class="col s6">
+          <div [class.hide]="order.clientNote==''" class="col s6">
             <p class="dataLabel">Nota de pedido</p>
             <p class="data" translate>{{order.clientNote}}</p>
+          </div>
+
+          <div *ngIf="order.serviceType==='DELIVERY'"  class="col s12">
+            <p class="dataLabel">Dirección</p>
+            <p class="data" translate>{{getAddressFormated(order.address)}}</p>
+          </div>
+
+          <div class="col s12">
+            <p class="dataLabel">Productos</p>
           </div>
 
         </div>
@@ -66,7 +75,6 @@
                   [routerLink]="['/stripe',order.id]" appStyleApp [classCss]="'color4'">Pagar
           </button>
         </div>
-
 
       </div>
     </div>

@@ -1,0 +1,21 @@
+<div id="modalProductName" class="modal" style="max-height:85% !important;" materialize="modal"  [materializeParams]="[{dismissible: true}]"
+     [materializeActions]="modalActions">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s12 m10 l8 offset-m1 offset-l2">
+
+        <div class="center-align">
+
+          <div class="center padding-top-subtitles">
+            <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>Filtrar productos por nombre</p>
+          </div>
+
+          <app-product-name-filter (productName)="setProductNameFilter($event)"></app-product-name-filter>
+
+          <button class="btn btn-success" (click)="closeModal()">Buscar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+

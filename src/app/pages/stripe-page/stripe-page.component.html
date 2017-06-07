@@ -11,22 +11,22 @@
         <div class="row">
           <div class="col s6">
             <p class="dataLabel">Restaurante</p>
-            <p class="data">{{order.restaurantId}}</p>
+            <p class="data">{{order.restaurantName}}</p>
           </div>
 
           <div class="col s6">
             <p class="dataLabel">Precio total</p>
-            <p class="data">{{order.totalPrice}}</p>
+            <p class="data">{{order.totalPrice}}€</p>
           </div>
 
 
-          <div class="col s6">
+          <div [class.hide]="order.estimatedPickupOrDeliveryTime===null" class="col s6">
             <p class="dataLabel">Tiempo estimado</p>
             <p class="data">{{order.estimatedPickupOrDeliveryTime}}</p>
           </div>
 
 
-          <div class="col s6">
+          <div [class.hide]="order.clientNote===''" class="col s6">
             <p class="dataLabel">Nota de pedido</p>
             <p class="data">{{order.clientNote}}</p>
           </div>
@@ -64,16 +64,30 @@
           </div>
           <br>
           <div class="right-align">
-            <img class="left-align" style="margin-top: 15px;" src="assets/resources/powered_by_stripe.svg">
+            <img class="left-align" style="margin-top: 25px;" src="assets/resources/powered_by_stripe.svg">
           </div>
           <br>
 
 
           <div class="center">
-            <button class="waves-effect waves-light btn" appStyleApp [classCss]="'color4'"
+
+            <button [class.hide]="disableSubmitButton===true" class="waves-effect waves-light btn" appStyleApp [classCss]="'color4'"
                     [disabled]="((!formValid) || disableSubmitButton)"
                     (click)="submitPayment()">Pagar
             </button>
+            <!--spinner-->
+            <div [class.hide]="disableSubmitButton===false" class="preloader-wrapper small active ">
+              <div class="spinner-layer spinner-blue-only ">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+              </div>
+            </div>
+
           </div>
         </form>
       </div>
