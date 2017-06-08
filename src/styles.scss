@@ -3,21 +3,29 @@ $flag-icon-css-path: '~flag-icon-css/flags' !default;
 @import "../node_modules/flag-icon-css/sass/flag-icon";
 
 //@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600');
-//
 //body {
-//  font-family: 'Raleway', sans-serif;
-//  font-weight: 100;
 //  display: flex;
-//  min-height: 100vh;
+//  min-height: 73.8vh;
 //  flex-direction: column;
+//  font-family: 'Raleway', sans-serif;
 //}
+
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+/*-------------------------------------Margin Styles-------------------------------------*/
 
 .no-margin {
   margin: 0px;
-}
-
-.padding-top-subtitles{
-  padding-top: 8px;
 }
 
 .no-margin-top {
@@ -25,6 +33,12 @@ $flag-icon-css-path: '~flag-icon-css/flags' !default;
 }
 .no-margin-bottom {
   margin-bottom: 0px;
+}
+
+/*-------------------------------------Padding Styles-------------------------------------*/
+
+.padding-top-subtitles{
+  padding-top: 8px;
 }
 
 .no-padding {
@@ -39,19 +53,18 @@ $flag-icon-css-path: '~flag-icon-css/flags' !default;
   padding-bottom: 0px !important;
 }
 
-app-root {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
 
+
+/*-------------------------------------Border Styles-------------------------------------*/
 .no-border {
   border: 0px;
 }
 
-main {
-  flex: 1 0 auto;
-}
+//main {
+//  flex: 1 0 auto;
+//}
+
+/*------------------------------------- \\ -------------------------------------*/
 
 .title-section-mobile {
   font-size: 15px;
@@ -63,6 +76,8 @@ main {
 .pointer{
   cursor: pointer;
 }
+
+/*-------------------------------------Google Maps-------------------------------------*/
 /*Override modal
 Cuando despliegas el modal si estas en movil
 ma mascara oscura se ve.*/
@@ -77,4 +92,16 @@ agm-map {
   height: 200px !important;
   width: 100% !important;
 }
+
+
+.background-image {
+  background: url("./assets/resources/back-error.jpg")  no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height:100%;
+  flex:1;
+}
+
 

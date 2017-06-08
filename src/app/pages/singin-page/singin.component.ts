@@ -8,7 +8,10 @@ import {MaterializeAction} from "angular2-materialize/dist";
 @Component({
   selector: 'app-singin',
   templateUrl: './singin.component.html',
-  styles: ['.top-margin {margin-top: 10%;}']
+  styles: ['.top-margin {margin-top: 10%;}'],
+  host: {
+    class:'background-image'
+  }
 })
 export class SinginComponent implements OnInit {
 

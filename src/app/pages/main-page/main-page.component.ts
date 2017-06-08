@@ -1,4 +1,4 @@
-import {Component, OnInit,OnDestroy, EventEmitter, ViewChild} from "@angular/core";
+import {Component, OnInit, EventEmitter, ViewChild} from "@angular/core";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {MaterializeAction} from "angular2-materialize/dist";
@@ -13,9 +13,12 @@ import {FilterProductsNameModalComponent} from "../../modal/filter-products-name
 @Component({
   selector: 'app-main-page',
   templateUrl: 'main-page.component.html',
-  styleUrls: ['main-page.component.scss']
+  styleUrls: ['main-page.component.scss'],
+  host: {
+    class:'background-image'
+  }
 })
-export class MainPageComponent implements OnInit  {
+export class MainPageComponent implements OnInit {
 
   products: Product[];
   restaurant: Observable<Restaurant>;
@@ -73,6 +76,7 @@ export class MainPageComponent implements OnInit  {
   setCategoryId(categoryId: number | null) {
     this.categoryIdFilter = categoryId;
   }
+
   setProductNameFilter(productName: string | null) {
     this.productNameFilter = productName;
   }
