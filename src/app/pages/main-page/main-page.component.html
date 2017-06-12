@@ -3,7 +3,7 @@
   <div class="row hide-on-large-only initial-row no-margin-bottom">
     <div class=" col s8 m8">
       <button type="button"
-              class="waves-effect waves-light btn reserve-button grey"  routerLink="book"
+              class="waves-effect waves-light btn reserve-button grey" routerLink="book"
               style="width: 95%;" appStyleApp [classCss]="'color4'" translate>main-page.reserve
       </button>
     </div>
@@ -37,7 +37,11 @@
           <div class="center padding-top-subtitles">
             <p class="title-section-mobile" appStyleApp [classCss]="'color2'" translate>Filtrar por nombre</p>
           </div>
-          <app-product-name-filter (productName)="setProductNameFilter($event)"></app-product-name-filter>
+          <div class="card no-padding">
+            <div class="card-content no-padding-top" style="padding-bottom: 2px;">
+              <app-product-name-filter (productName)="setProductNameFilter($event)"></app-product-name-filter>
+            </div>
+          </div>
         </div>
 
         <div class="col s12">

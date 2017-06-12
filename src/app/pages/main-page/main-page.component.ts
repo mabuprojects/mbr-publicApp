@@ -15,7 +15,7 @@ import {FilterProductsNameModalComponent} from "../../modal/filter-products-name
   templateUrl: 'main-page.component.html',
   styleUrls: ['main-page.component.scss'],
   host: {
-    class:'background-image'
+    class:''
   }
 })
 export class MainPageComponent implements OnInit {
